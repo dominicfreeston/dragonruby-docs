@@ -1,20 +1,20 @@
 (ns core
   (:require
-   [net.cgrand.enlive-html :as html]
+   [net.cgrand.enlive-html :as e]
    [clojure.java.io :as io]
    [clojure.string :as str]))
 
 (defonce url "http://docs.dragonruby.org.s3-website-us-east-1.amazonaws.com")
 (defonce html-string (-> (slurp url)
                      (str/replace "<=" "&lt="))) ;; hackaround for dodgy html
-(defonce html-res (html/html-resource (io/input-stream (.getBytes html-string))))
+(defonce html-res (e/html-resource (io/input-stream (.getBytes html-string))))
 
 
 (defn bring-back-language-ruby
   "The DR docs now only group code snippets in a <pre> tag,
   but we want <pre><code class='language-ruby' like the good old days>"
   [nodes]
-  (html/transform
+  (e/transform
    nodes
    [:pre]
    (fn [pre]
@@ -23,7 +23,33 @@
               :attrs {:class "language-ruby"}
               :content (:content pre)}]))))
 
-(defn partition-by-tag [split-tag content]
+(defn turn-header-into-self-link
+  [nodes]
+  (e/transform
+   nodes
+   #{[:h1] [:h2] [:h3]}
+   (fn [h]
+     (assoc h :content
+            [{:tag :a
+              :attrs {:href (str "#" (get-in h [:attrs :id]))}
+              :content (:content h)}]))))
+
+(defn promote-h-tags
+  [nodes]
+  (e/transform
+   nodes
+   #{[:h1] [:h2] [:h3] [:h4]}
+   (fn [h]
+     (assoc h :tag (case (:tag h)
+                     :h1 :h1
+                     :h2 :h1
+                     :h3 :h2
+                     :h4 :h3)))))
+
+(defn partition-by-tag
+  "Given a flat list of html tags, we want to group them based on some meaningful
+  top level tag (usually a h tag)"
+  [split-tag content]
   (reduce (fn [ls node]
             (if (= (:tag node) split-tag)
               (conj ls [node])
@@ -31,23 +57,31 @@
           [[]]
           content))
 
+
 (defn group-h1-content-in-div
   "Apart from a TOC anda content div, most of the DR docs page
   is super flat, which makes it hard to extract a particular section.
   This uses <h1> tags as separators and groups all the content below inside a <div>"
   [content]
-  (map
-     (fn [content]
-       {:tag :div
-        :attrs {:id (str "section" (get-in (first content) [:attrs :id]))}
-        :content (let [section-content (partition-by-tag :h2 content)]
-                   (conj
-                    (first section-content)
-                    (rest (mapv (fn [c]
-                                  {:tag :div
-                                   :content c})
-                                section-content))))})
-     (partition-by-tag :h1 content)))
+  (mapv
+    (fn [content]
+      {:tag :div
+       :attrs {:id (str "section" (get-in (first content) [:attrs :id]))}
+       :content (let [h2-content (partition-by-tag :h2 content)]
+                  (concat
+                   (first h2-content)
+                   (mapv (fn [content]
+                           {:tag :div
+                            :content (let [h3-content (partition-by-tag :h3 content)]
+                                       (concat
+                                        (first h3-content)
+                                        (mapv (fn [content]
+                                                {:tag :div
+                                                 :content content})
+                                              (rest h3-content))))})
+                         (rest h2-content))))})
+    (partition-by-tag :h1 content))
+  )
 
 (defn output-section-page!
   [page body]
@@ -57,8 +91,8 @@
           (str
            "<!DOCTYPE html>"
            (str/join
-            (html/emit*
-             (html/html
+            (e/emit*
+             (e/html
               [:html
                [:head
                 [:link {:rel "stylesheet"
@@ -74,15 +108,16 @@
                 body]])))))))
 
 (def grouped-sections
-  (->> (html/select html-res [:div#content])
+  (->> (e/select html-res [:div#content])
        bring-back-language-ruby
+       turn-header-into-self-link
        first
        :content
        (remove string?)
        group-h1-content-in-div))
 
 (comment
-  (map (comp :id :attrs) grouped-sections)
+  
          )
 
 (def api-docs-sections
@@ -110,6 +145,13 @@
 
 
 (comment
+  (map (comp :id :attrs) grouped-sections)
+  (map :tag grouped-sections)
+  (:content (second grouped-sections))
+
+  (nth (:content (nth grouped-sections 12)) 3)
+  (promote-h-tags (e/select (nth grouped-sections 12) [:h2]))
+    
   (-> "#section---geometry-"
       (str/replace-first "#section---" "")
       drop-last
@@ -121,13 +163,17 @@
          (str/replace-first "#section---" "")
          drop-last
          str/join)
-     (html/select grouped-sections [(keyword s)]))))
+     (e/select grouped-sections [(keyword s)]))))
 
 (output-section-page!
  "api/index"
- (html/select grouped-sections (into #{} (map (comp vector keyword)
-                                              api-docs-sections))))
+ (e/select grouped-sections (into #{} (map (comp vector keyword)
+                                                            api-docs-sections))))
 
 (output-section-page!
  "recipies/index"
- (html/select grouped-sections [:#section--recipies-]))
+ (e/select grouped-sections [:#section--recipies-]))
+
+(output-section-page!
+ "samples/index"
+ (e/select (promote-h-tags grouped-sections) [:#section--source-code]))

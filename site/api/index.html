@@ -1,18 +1,18 @@
-<!DOCTYPE html><html><head><link rel="stylesheet" href="/css/preflight.css" /><link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/nord.min.css" /><script src="/js/highlight.min.js"></script><script>hljs.highlightAll();</script></head><body><div id="section---runtime-"><h1 id="---runtime-"><a href="#---runtime-"><code>Runtime</code></a></h1><p>
+<!DOCTYPE html><html><head><link rel="stylesheet" href="/css/preflight.css" /><link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/nord.min.css" /><script src="/js/highlight.min.js"></script></head><body><div id="section---runtime-"><h1 id="---runtime-"><a href="#---runtime-"><code>Runtime</code></a></h1><p>
 The <code>GTK::Runtime</code> class is the core of DragonRuby. It is globally accessible via <code>$gtk</code> or inside of the <code>tick</code> method through <code>args</code>.
 </p><pre><code class="language-ruby">def tick args
   args.gtk # accessible like this
   $gtk # or like this
 end
-</code></pre><div><h2 id="----get_pixels-"><a href="#----get_pixels-"><code>get_pixels</code></a></h2><p>
+</code></pre><div id="section----get_pixels-"><h2 id="----get_pixels-"><a href="#----get_pixels-"><code>get_pixels</code></a></h2><p>
 Given a <code>file_path</code> to a sprite, this function returns a one dimensional array of hexadecimal values representing the ARGB of each pixel in a sprite.
 </p><p>
 See the following sample app for a full demonstration of how to use this function: <code>./samples/07_advanced_rendering/06_pixel_arrays_from_file</code>
-</p></div><div><h2 id="----dlopen-"><a href="#----dlopen-"><code>dlopen</code></a></h2><p>
+</p></div><div id="section----dlopen-"><h2 id="----dlopen-"><a href="#----dlopen-"><code>dlopen</code></a></h2><p>
 Loads a precompiled C Extension into your game.
 </p><p>
 See the sample apps at <code>./samples/12_c_extensions</code> for detailed walkthroughs of creating C extensions.
-</p></div><div><h2 id="----calcstringbox-"><a href="#----calcstringbox-"><code>calcstringbox</code></a></h2><p>
+</p></div><div id="section----calcstringbox-"><h2 id="----calcstringbox-"><a href="#----calcstringbox-"><code>calcstringbox</code></a></h2><p>
 Returns the render width and render height as a tuple for a piece of text. The parameters this method takes are:
 </p><ul>
 <li><code>text</code>: the text you want to get the width and height of.</li>
@@ -50,7 +50,7 @@ Returns the render width and render height as a tuple for a piece of text. The p
     b: 0
   }
 end
-</code></pre></div><div><h2 id="----request_quit-"><a href="#----request_quit-"><code>request_quit</code></a></h2><p>
+</code></pre></div><div id="section----request_quit-"><h2 id="----request_quit-"><a href="#----request_quit-"><code>request_quit</code></a></h2><p>
 Call this function to exit your game. You will be given one additional tick if you need to perform any housekeeping before that game closes.
 </p><pre><code class="language-ruby">def tick args
   # exit the game after 600 frames (10 seconds)
@@ -58,9 +58,9 @@ Call this function to exit your game. You will be given one additional tick if y
     args.gtk.request_quit
   end
 end
-</code></pre></div><div><h2 id="----quit_requested--"><a href="#----quit_requested--"><code>quit_requested?</code></a></h2><p>
+</code></pre></div><div id="section----quit_requested--"><h2 id="----quit_requested--"><a href="#----quit_requested--"><code>quit_requested?</code></a></h2><p>
 This function will return <code>true</code> if the game is about to exit (either from the user closing the game or if <code>request_quit</code> was invoked).
-</p></div><div><h2 id="----set_window_fullscreen-"><a href="#----set_window_fullscreen-"><code>set_window_fullscreen</code></a></h2><p>
+</p></div><div id="section----set_window_fullscreen-"><h2 id="----set_window_fullscreen-"><a href="#----set_window_fullscreen-"><code>set_window_fullscreen</code></a></h2><p>
 This function takes in a single boolean parameter. <code>true</code> to make the game fullscreen, <code>false</code> to return the game back to windowed mode.
 </p><pre><code class="language-ruby">def tick args
   # make the game full screen after 600 frames (10 seconds)
@@ -73,9 +73,9 @@ This function takes in a single boolean parameter. <code>true</code> to make the
     args.gtk.set_window_fullscreen false
   end
 end
-</code></pre></div><div><h2 id="----window_fullscreen--"><a href="#----window_fullscreen--"><code>window_fullscreen?</code></a></h2><p>
+</code></pre></div><div id="section----window_fullscreen--"><h2 id="----window_fullscreen--"><a href="#----window_fullscreen--"><code>window_fullscreen?</code></a></h2><p>
 Returns true if the window is currently in fullscreen mode.
-</p></div><div><h2 id="----platform--"><a href="#----platform--"><code>platform?</code></a></h2><p>
+</p></div><div id="section----platform--"><h2 id="----platform--"><a href="#----platform--"><code>platform?</code></a></h2><p>
 You can ask DragonRuby which platform your game is currently being run on. This can be useful if you want to perform different pieces of logic based on where the game is running.
 </p><p>
 The raw platform string value is available via <code>args.gtk.platform</code> which takes in a <code>symbol</code> representing the platform's categorization/mapping.
@@ -104,7 +104,7 @@ Here's an example of how to use <code>args.gtk.platform? category_symbol</code>:
                              text: "I am running on iOS.", alignment_enum: 1 }
   end
 end
-</code></pre></div><div><h2 id="----platform_mappings-"><a href="#----platform_mappings-"><code>platform_mappings</code></a></h2><p>
+</code></pre></div><div id="section----platform_mappings-"><h2 id="----platform_mappings-"><a href="#----platform_mappings-"><code>platform_mappings</code></a></h2><p>
 These are the current platform categorizations (<code>args.gtk.platform_mappings</code>):
 </p><pre><code class="language-ruby">{
   "Mac OS X"   =&gt; [:desktop, :macos, :osx, :mac, :macosx],
@@ -116,7 +116,7 @@ These are the current platform categorizations (<code>args.gtk.platform_mappings
 }
 </code></pre><p>
 Given the mappings above, <code>args.gtk.platform? :desktop</code> would return <code>true</code> if the game is running on a player's computer irrespective of OS (MacOS, Linux, and Windows are all categorized as <code>:desktop</code> platforms).
-</p></div><div><h2 id="----open_url-"><a href="#----open_url-"><code>open_url</code></a></h2><p>
+</p></div><div id="section----open_url-"><h2 id="----open_url-"><a href="#----open_url-"><code>open_url</code></a></h2><p>
 Given a uri represented as a string. This fuction will open the uri in the user's default browser.
 </p><pre><code class="language-ruby">def tick args
   # open a url after 600 frames (10 seconds)
@@ -124,7 +124,7 @@ Given a uri represented as a string. This fuction will open the uri in the user'
     args.gtk.open_url "http://dragonruby.org"
   end
 end
-</code></pre></div><div><h2 id="----system-"><a href="#----system-"><code>system</code></a></h2><p>
+</code></pre></div><div id="section----system-"><h2 id="----system-"><a href="#----system-"><code>system</code></a></h2><p>
 Given an OS dependent cli command represented as a string, this function executes the command and <code>puts</code> the results to the DragonRuby Console (returns <code>nil</code>).
 </p><pre><code class="language-ruby">def tick args
   # execute ls on the current directory in 10 seconds
@@ -132,7 +132,7 @@ Given an OS dependent cli command represented as a string, this function execute
     args.gtk.system "ls ."
   end
 end
-</code></pre></div><div><h2 id="----exec-"><a href="#----exec-"><code>exec</code></a></h2><p>
+</code></pre></div><div id="section----exec-"><h2 id="----exec-"><a href="#----exec-"><code>exec</code></a></h2><p>
 Given an OS dependent cli command represented as a string, this function executes the command and returns a <code>string</code> representing the results.
 </p><pre><code class="language-ruby">def tick args
   # execute ls on the current directory in 10 seconds
@@ -142,21 +142,21 @@ Given an OS dependent cli command represented as a string, this function execute
     puts results
   end
 end
-</code></pre></div><div><h2 id="----show_cursor-"><a href="#----show_cursor-"><code>show_cursor</code></a></h2><p>
+</code></pre></div><div id="section----show_cursor-"><h2 id="----show_cursor-"><a href="#----show_cursor-"><code>show_cursor</code></a></h2><p>
 Shows the mouse cursor.
-</p></div><div><h2 id="----hide_cursor-"><a href="#----hide_cursor-"><code>hide_cursor</code></a></h2><p>
+</p></div><div id="section----hide_cursor-"><h2 id="----hide_cursor-"><a href="#----hide_cursor-"><code>hide_cursor</code></a></h2><p>
 Hides the mouse cursor.
-</p></div><div><h2 id="----cursor_shown--"><a href="#----cursor_shown--"><code>cursor_shown?</code></a></h2><p>
+</p></div><div id="section----cursor_shown--"><h2 id="----cursor_shown--"><a href="#----cursor_shown--"><code>cursor_shown?</code></a></h2><p>
 Returns <code>true</code> if the mouse cursor is visible.
-</p></div><div><h2 id="----set_mouse_grab-"><a href="#----set_mouse_grab-"><code>set_mouse_grab</code></a></h2><p>
+</p></div><div id="section----set_mouse_grab-"><h2 id="----set_mouse_grab-"><a href="#----set_mouse_grab-"><code>set_mouse_grab</code></a></h2><p>
 Takes in a numeric parameter representing the mouse grab mode.
 </p><ul>
 <li><code>0</code>: Ungrabs the mouse.</li>
 <li><code>1</code>: Grabs the mouse.</li>
 <li><code>2</code>: Hides the cursor, grabs the mouse and puts it in relative position mode accessible via <code>args.inputs.mouse.relative_(x|y)</code>.</li>
-</ul></div><div><h2 id="----set_system_cursor-"><a href="#----set_system_cursor-"><code>set_system_cursor</code></a></h2><p>
+</ul></div><div id="section----set_system_cursor-"><h2 id="----set_system_cursor-"><a href="#----set_system_cursor-"><code>set_system_cursor</code></a></h2><p>
 Takes in a string value of <code>"arrow"</code>, <code>"ibeam"</code>, <code>"wait"</code>, or <code>"hand"</code> and sets the mouse curosor to the corresponding system cursor (if available on the OS).
-</p></div><div><h2 id="----set_cursor-"><a href="#----set_cursor-"><code>set_cursor</code></a></h2><p>
+</p></div><div id="section----set_cursor-"><h2 id="----set_cursor-"><a href="#----set_cursor-"><code>set_cursor</code></a></h2><p>
 Replaces the mouse cursor with a sprite. Takes in a <code>path</code> to the sprite, and optionally an <code>x</code> and <code>y</code> value representing the realtive positioning the sprite will have to the mouse cursor.
 </p><pre><code class="language-ruby">def tick args
   if args.state.tick_count == 0
@@ -165,9 +165,9 @@ Replaces the mouse cursor with a sprite. Takes in a <code>path</code> to the spr
     args.gtk.set_cursor "sprites/square/blue.png", 40, 40
   end
 end
-</code></pre></div><div><h2 id="----list_files-"><a href="#----list_files-"><code>list_files</code></a></h2><p>
+</code></pre></div><div id="section----list_files-"><h2 id="----list_files-"><a href="#----list_files-"><code>list_files</code></a></h2><p>
 This function takes in one parameter. The parameter is the directory path and assumes the the game directory is the root. The method returns an <code>Array</code> of <code>String</code> representing all files within the directory. Use <code>stat_file</code> to determine whether a specific path is a file or a directory.
-</p></div><div><h2 id="----stat_file-"><a href="#----stat_file-"><code>stat_file</code></a></h2><p>
+</p></div><div id="section----stat_file-"><h2 id="----stat_file-"><a href="#----stat_file-"><code>stat_file</code></a></h2><p>
 This function takes in one parameter. The parameter is the file path and assumes the the game directory is the root. The method returns <code>nil</code> if the file doesn't exist otherwise it returns a <code>Hash</code> with the following information:
 </p><pre><code class="language-ruby"># {
 #   path: String,
@@ -202,23 +202,23 @@ def tick args
     }
   end
 end
-</code></pre></div><div><h2 id="----read_file-"><a href="#----read_file-"><code>read_file</code></a></h2><p>
+</code></pre></div><div id="section----read_file-"><h2 id="----read_file-"><a href="#----read_file-"><code>read_file</code></a></h2><p>
 Given a file path, a string will be returned representing the contents of the file. <code>nil</code> will be returned if the file does not exist. You can use <code>stat_file</code> to get additional information of a file.
-</p></div><div><h2 id="----write_file-"><a href="#----write_file-"><code>write_file</code></a></h2><p>
+</p></div><div id="section----write_file-"><h2 id="----write_file-"><a href="#----write_file-"><code>write_file</code></a></h2><p>
 This function takes in two parameters. The first parameter is the file path and assumes the the game directory is the root. The second parameter is the string that will be written. The method **overwrites** whatever is currently in the file. Use <code>append_file</code> to append to the file as opposed to overwriting.
 </p><pre><code class="language-ruby">def tick args
   if args.inputs.mouse.click
     args.gtk.write_file "last-mouse-click.txt", "Mouse was clicked at #{args.state.tick_count}."
   end
 end
-</code></pre></div><div><h2 id="----append_file-"><a href="#----append_file-"><code>append_file</code></a></h2><p>
+</code></pre></div><div id="section----append_file-"><h2 id="----append_file-"><a href="#----append_file-"><code>append_file</code></a></h2><p>
 This function takes in two parameters. The first parameter is the file path and assumes the the game directory is the root. The second parameter is the string that will be written. The method appends to whatever is currently in the file (a new file is created if one does not alread exist). Use <code>write_file</code> to overwrite the file's contents as opposed to appending.
 </p><pre><code class="language-ruby">def tick args
   if args.inputs.mouse.click
     args.gtk.write_file "last-mouse-click.txt", "Mouse was clicked at #{args.state.tick_count}."
   end
 end
-</code></pre></div><div><h2 id="----delete_file-"><a href="#----delete_file-"><code>delete_file</code></a></h2><p>
+</code></pre></div><div id="section----delete_file-"><h2 id="----delete_file-"><a href="#----delete_file-"><code>delete_file</code></a></h2><p>
 This function takes in a single parameters. The parameter is the file path that should be deleted. This function will raise an exception if the path requesting to be deleted does not exist.
 </p><p>
 Notes:
@@ -236,24 +236,24 @@ Here is a list of reasons an exception could be raised:
     args.gtk.write_file "last-mouse-click.txt", "Mouse was clicked at #{args.state.tick_count}."
   end
 end
-</code></pre></div><div><h2 id="----delete_file_if_exist-"><a href="#----delete_file_if_exist-"><code>delete_file_if_exist</code></a></h2><p>
+</code></pre></div><div id="section----delete_file_if_exist-"><h2 id="----delete_file_if_exist-"><a href="#----delete_file_if_exist-"><code>delete_file_if_exist</code></a></h2><p>
 Has the same behavior as <code>delete_file</code> except this function does not throw an exception.
-</p></div><div><h2 id="----parse_json-"><a href="#----parse_json-"><code>parse_json</code></a></h2><p>
+</p></div><div id="section----parse_json-"><h2 id="----parse_json-"><a href="#----parse_json-"><code>parse_json</code></a></h2><p>
 Given a json string, this function returns a hash representing the json data.
 </p><pre><code class="language-ruby">sh = args.gtk.parse_json '{ "name": "John Doe", "aliases": ["JD"] }'
 structure of hash: { "name"=&gt;"John Doe", "aliases"=&gt;["JD"] }
-</code></pre></div><div><h2 id="----parse_json_file-"><a href="#----parse_json_file-"><code>parse_json_file</code></a></h2><p>
+</code></pre></div><div id="section----parse_json_file-"><h2 id="----parse_json_file-"><a href="#----parse_json_file-"><code>parse_json_file</code></a></h2><p>
 Same behavior as <code>parse_json_file</code> except a file path is read for the json string.
-</p></div><div><h2 id="----parse_xml-"><a href="#----parse_xml-"><code>parse_xml</code></a></h2><p>
+</p></div><div id="section----parse_xml-"><h2 id="----parse_xml-"><a href="#----parse_xml-"><code>parse_xml</code></a></h2><p>
 Given xml data as a string, this function will return a hash that represents the xml data in the following recursive structure:
 </p><pre><code class="language-ruby">
 type: :element,
 name: "Person",
 children: [...]
 
-</code></pre></div><div><h2 id="----parse_xml_file-"><a href="#----parse_xml_file-"><code>parse_xml_file</code></a></h2><p>
+</code></pre></div><div id="section----parse_xml_file-"><h2 id="----parse_xml_file-"><a href="#----parse_xml_file-"><code>parse_xml_file</code></a></h2><p>
 Function has the same behavior as <code>parse_xml</code> except that the parameter must be a file path that contains xml contents.
-</p></div><div><h2 id="----http_get-"><a href="#----http_get-"><code>http_get</code></a></h2><p>
+</p></div><div id="section----http_get-"><h2 id="----http_get-"><a href="#----http_get-"><code>http_get</code></a></h2><p>
 Returns an object that represents an http response which will eventually have a value. This http_get method is invoked asynchronously. Check for completion before attempting to read results.
 </p><pre><code class="language-ruby">def tick args
   # perform an http get and print the response when available
@@ -274,7 +274,7 @@ Returns an object that represents an http response which will eventually have a 
     args.gtk.show_console
   end
 end
-</code></pre></div><div><h2 id="----http_post-"><a href="#----http_post-"><code>http_post</code></a></h2><p>
+</code></pre></div><div id="section----http_post-"><h2 id="----http_post-"><a href="#----http_post-"><code>http_post</code></a></h2><p>
 Returns an object that represents an http response which will eventually have a value. This http_post method is invoked asynchronously. Check for completion before attempting to read results.
 </p><ul>
 <li>First parameter: The url to send the request to.</li>
@@ -305,7 +305,7 @@ Returns an object that represents an http response which will eventually have a 
     args.gtk.show_console
   end
 end
-</code></pre></div><div><h2 id="----http_post_body-"><a href="#----http_post_body-"><code>http_post_body</code></a></h2><p>
+</code></pre></div><div id="section----http_post_body-"><h2 id="----http_post_body-"><a href="#----http_post_body-"><code>http_post_body</code></a></h2><p>
 Returns an object that represents an http response which will eventually have a value. This http_post_body method is invoked asynchronously. Check for completion before attempting to read results.
 </p><ul>
 <li>First parameter: The url to send the request to.</li>
@@ -336,7 +336,7 @@ Returns an object that represents an http response which will eventually have a 
     args.gtk.show_console
   end
 end
-</code></pre></div><div><h2 id="----start_server!-"><a href="#----start_server!-"><code>start_server!</code></a></h2><p>
+</code></pre></div><div id="section----start_server!-"><h2 id="----start_server!-"><a href="#----start_server!-"><code>start_server!</code></a></h2><p>
 Starts a in-game http server that can be process http requests. When your game is running in development mode. A dev server is started at <code>http://localhost:9001</code>
 </p><p>
 You can start an in-game http server in production via:
@@ -356,13 +356,13 @@ Here's how you would responde to http requests:
     request.respond 200, "ok"
   end
 end
-</code></pre></div><div><h2 id="----production--"><a href="#----production--"><code>production?</code></a></h2><p>
+</code></pre></div><div id="section----production--"><h2 id="----production--"><a href="#----production--"><code>production?</code></a></h2><p>
 Returns true if the game is being run in a released/shipped state.
-</p></div><div><h2 id="----version-"><a href="#----version-"><code>version</code></a></h2><p>
+</p></div><div id="section----version-"><h2 id="----version-"><a href="#----version-"><code>version</code></a></h2><p>
 Returns a string representing the version of DragonRuby you are running.
-</p></div><div><h2 id="----version_pro--"><a href="#----version_pro--"><code>version_pro?</code></a></h2><p>
+</p></div><div id="section----version_pro--"><h2 id="----version_pro--"><a href="#----version_pro--"><code>version_pro?</code></a></h2><p>
 Returns <code>true</code> if the version of DragonRuby is NOT Standard Edition.
-</p></div><div><h2 id="----reset-"><a href="#----reset-"><code>reset</code></a></h2><p>
+</p></div><div id="section----reset-"><h2 id="----reset-"><a href="#----reset-"><code>reset</code></a></h2><p>
 Resets DragonRuby's internal state as if it were just started. <code>args.state.tick_count</code> is set to <code>0</code> and <code>args.state</code> is cleared of any values. This function is helpful when you are developing your game and want to reset everything as if the game just booted up.
 </p><pre><code class="language-ruby">def tick args
 end
@@ -372,7 +372,7 @@ end
 $gtk.reset
 </code></pre><p>
 NOTE: <code>args.gtk.reset</code> does not reset global variables or instance of classes you have have constructed.
-</p></div><div><h2 id="----reset_next_tick-"><a href="#----reset_next_tick-"><code>reset_next_tick</code></a></h2><p>
+</p></div><div id="section----reset_next_tick-"><h2 id="----reset_next_tick-"><a href="#----reset_next_tick-"><code>reset_next_tick</code></a></h2><p>
 Has the same behavior as <code>reset</code> except the reset occurs before <code>tick</code> is executed again. <code>reset</code> resets the environment immediately (while the <code>tick</code> method is inflight). It's recommended that <code>reset</code> should be called outside of the tick method (invoked when a file is saved/hotloaded), and <code>reset_next_tick</code> be used inside of the <code>tick</code> method so you don't accidentally blow away state the your game depends on to complete the current <code>tick</code> without exceptions.
 </p><pre><code class="language-ruby">def tick args
   # reset the game if "r" is pressed on the keyboard
@@ -384,25 +384,25 @@ end
 # reset the game if this file is hotloaded/required
 # (removes the need to press "r" when I file is updated)
 $gtk.reset
-</code></pre></div><div><h2 id="----reset_sprite-"><a href="#----reset_sprite-"><code>reset_sprite</code></a></h2><p>
+</code></pre></div><div id="section----reset_sprite-"><h2 id="----reset_sprite-"><a href="#----reset_sprite-"><code>reset_sprite</code></a></h2><p>
 Sprites when loaded are cached. This method invalidates the cache record of a sprite so that updates on from the disk can be loaded.
-</p></div><div><h2 id="----calcspritebox-"><a href="#----calcspritebox-"><code>calcspritebox</code></a></h2><p>
+</p></div><div id="section----calcspritebox-"><h2 id="----calcspritebox-"><a href="#----calcspritebox-"><code>calcspritebox</code></a></h2><p>
 Given a path to a sprite, this method returns the <code>width</code> and <code>height</code> of a sprite as a tuple.
 </p><p>
 NOTE: This method should be used for development purposes only and is       expensive to call every frame. Do not use this method to set the       size of sprite when rendering (hard code those values since you       know what they are beforehand).
-</p></div><div><h2 id="----current_framerate-"><a href="#----current_framerate-"><code>current_framerate</code></a></h2><p>
+</p></div><div id="section----current_framerate-"><h2 id="----current_framerate-"><a href="#----current_framerate-"><code>current_framerate</code></a></h2><p>
 Returns a float value representing the framerate of your game. This is an approximation/moving average of your framerate and should eventually settle to 60fps.
 </p><pre><code class="language-ruby">def tick args
   # render a label to the screen that shows the current framerate
   # formatted as a floating point number with two decimal places
   args.outputs.labels &lt;&lt; { x: 30, y: 30.from_top, text: "#{args.gtk.current_framerate.to_sf}" }
 end
-</code></pre></div><div><h2 id="----framerate_diagnostics_primitives-"><a href="#----framerate_diagnostics_primitives-"><code>framerate_diagnostics_primitives</code></a></h2><p>
+</code></pre></div><div id="section----framerate_diagnostics_primitives-"><h2 id="----framerate_diagnostics_primitives-"><a href="#----framerate_diagnostics_primitives-"><code>framerate_diagnostics_primitives</code></a></h2><p>
 Returns a set of primitives that can be rendered to the screen which provide more detailed information about the speed of your simulation (framerate, draw call count, mouse position, etc).
 </p><pre><code class="language-ruby">def tick args
   args.outputs.primitives &lt;&lt; args.gtk.framerate_diagnostics_primitives
 end
-</code></pre></div><div><h2 id="----warn_array_primitives!-"><a href="#----warn_array_primitives!-"><code>warn_array_primitives!</code></a></h2><p>
+</code></pre></div><div id="section----warn_array_primitives!-"><h2 id="----warn_array_primitives!-"><a href="#----warn_array_primitives!-"><code>warn_array_primitives!</code></a></h2><p>
 This function helps you audit your game of usages of array-based primitives. While array-based primitives are simple to create and use, they are slower to process than <code>Hash</code> or <code>Class</code> based primitives.
 </p><pre><code class="language-ruby">def tick args
   # enable array based primitives warnings
@@ -422,7 +422,7 @@ This function helps you audit your game of usages of array-based primitives. Whi
     "sprites/square/blue.png"
   }
 end
-</code></pre></div><div><h2 id="----benchmark-"><a href="#----benchmark-"><code>benchmark</code></a></h2><p>
+</code></pre></div><div id="section----benchmark-"><h2 id="----benchmark-"><a href="#----benchmark-"><code>benchmark</code></a></h2><p>
 You can use this function to compare the relative performance of methods.
 </p><pre><code class="language-ruby">def tick args
   # press r to run benchmark
@@ -446,7 +446,7 @@ You can use this function to compare the relative performance of methods.
                        }
   end
 end
-</code></pre></div><div><h2 id="----notify!-"><a href="#----notify!-"><code>notify!</code></a></h2><p>
+</code></pre></div><div id="section----notify!-"><h2 id="----notify!-"><a href="#----notify!-"><code>notify!</code></a></h2><p>
 Given a string, this function will present a message at the bottom of your game. This method is only invoked in dev mode and is useful for debugging.
 </p><p>
 An optional parameter of duration (number value representing ticks) can also be passed in. The default value if <code>300</code> ticks (5 seconds).
@@ -460,7 +460,7 @@ An optional parameter of duration (number value representing ticks) can also be 
     args.gtk.notify! "R key was pressed!", 600 # present message for 10 seconds/600 frames
   end
 end
-</code></pre></div><div><h2 id="----notify_extended!-"><a href="#----notify_extended!-"><code>notify_extended!</code></a></h2><p>
+</code></pre></div><div id="section----notify_extended!-"><h2 id="----notify_extended!-"><a href="#----notify_extended!-"><code>notify_extended!</code></a></h2><p>
 Has similar behavior as notify! except you have additional options to show messages in a production environment.
 </p><pre><code class="language-ruby">def tick args
   if args.inputs.mouse.click
@@ -469,7 +469,7 @@ Has similar behavior as notify! except you have additional options to show messa
                               env: :prod
   end
 end
-</code></pre></div><div><h2 id="----slowmo!-"><a href="#----slowmo!-"><code>slowmo!</code></a></h2><p>
+</code></pre></div><div id="section----slowmo!-"><h2 id="----slowmo!-"><a href="#----slowmo!-"><code>slowmo!</code></a></h2><p>
 Given a numeric value representing the factor of 60fps. This function will bring your simulation loop down to slower rate. This method is intended to be used for debugging purposes.
 </p><pre><code class="language-ruby">def tick args
   # set your simulation speed to (15 fps): args.gtk.slowmo! 4
@@ -479,21 +479,21 @@ Given a numeric value representing the factor of 60fps. This function will bring
 end
 </code></pre><p>
 Remove this line from your tick method will automatically set your simulation speed back to 60 fps.
-</p></div><div><h2 id="----show_console-"><a href="#----show_console-"><code>show_console</code></a></h2><p>
+</p></div><div id="section----show_console-"><h2 id="----show_console-"><a href="#----show_console-"><code>show_console</code></a></h2><p>
 Shows the DragonRuby console. Useful when debugging/customizing an in-game dev workflow.
-</p></div><div><h2 id="----hide_console-"><a href="#----hide_console-"><code>hide_console</code></a></h2><p>
+</p></div><div id="section----hide_console-"><h2 id="----hide_console-"><a href="#----hide_console-"><code>hide_console</code></a></h2><p>
 Shows the DragonRuby console. Useful when debugging/customizing an in-game dev workflow.
-</p></div><div><h2 id="----enable_console-"><a href="#----enable_console-"><code>enable_console</code></a></h2><p>
+</p></div><div id="section----enable_console-"><h2 id="----enable_console-"><a href="#----enable_console-"><code>enable_console</code></a></h2><p>
 Enables the DragonRuby Console so that it can be presented by pressing the tilde key (the key next to the number 1 key).
-</p></div><div><h2 id="----disable_console-"><a href="#----disable_console-"><code>disable_console</code></a></h2><p>
+</p></div><div id="section----disable_console-"><h2 id="----disable_console-"><a href="#----disable_console-"><code>disable_console</code></a></h2><p>
 Disables the DragonRuby Console so that it won't show up even if you press the tilde key or call <code>args.gtk.show_console</code>.
-</p></div><div><h2 id="----start_recording-"><a href="#----start_recording-"><code>start_recording</code></a></h2><p>
+</p></div><div id="section----start_recording-"><h2 id="----start_recording-"><a href="#----start_recording-"><code>start_recording</code></a></h2><p>
 Resets the game to tick <code>0</code> and starts recording gameplay. Useful for visual regression tests/verification.
-</p></div><div><h2 id="----stop_recording-"><a href="#----stop_recording-"><code>stop_recording</code></a></h2><p>
+</p></div><div id="section----stop_recording-"><h2 id="----stop_recording-"><a href="#----stop_recording-"><code>stop_recording</code></a></h2><p>
 Function takes in a destination file for the currently recording gameplay. This file can be used to replay a recording.
-</p></div><div><h2 id="----cancel_recording-"><a href="#----cancel_recording-"><code>cancel_recording</code></a></h2><p>
+</p></div><div id="section----cancel_recording-"><h2 id="----cancel_recording-"><a href="#----cancel_recording-"><code>cancel_recording</code></a></h2><p>
 Function cancels a gameplay recording session and discards the replay.
-</p></div><div><h2 id="----start_replay-"><a href="#----start_replay-"><code>start_replay</code></a></h2><p>
+</p></div><div id="section----start_replay-"><h2 id="----start_replay-"><a href="#----start_replay-"><code>start_replay</code></a></h2><p>
 Given a file that represents a recording, this method will run the recording against the current codebase.
 </p><p>
 You can start a replay from the command line also:
@@ -502,31 +502,31 @@ You can start a replay from the command line also:
 --speed switch is optional. a value of 4 will run the replay and game at 4x speed
 cli command example is in the context of Linux and Mac, for Windows the binary would be ./dragonruby.exe
 dragonruby ./mygame --replay ./replay.txt --speed 4
-</code></pre></div><div><h2 id="----stop_replay-"><a href="#----stop_replay-"><code>stop_replay</code></a></h2><p>
+</code></pre></div><div id="section----stop_replay-"><h2 id="----stop_replay-"><a href="#----stop_replay-"><code>stop_replay</code></a></h2><p>
 Function stops a replay that is currently executing.
-</p></div><div><h2 id="----get_base_dir-"><a href="#----get_base_dir-"><code>get_base_dir</code></a></h2><p>
+</p></div><div id="section----get_base_dir-"><h2 id="----get_base_dir-"><a href="#----get_base_dir-"><code>get_base_dir</code></a></h2><p>
 Returns the path to the location of the dragonruby binary. In production mode, this value will be the same as the value returned by <code>get_game_dir</code>. Function should only be used for debugging/development workflows.
-</p></div><div><h2 id="----get_game_dir-"><a href="#----get_game_dir-"><code>get_game_dir</code></a></h2><p>
+</p></div><div id="section----get_game_dir-"><h2 id="----get_game_dir-"><a href="#----get_game_dir-"><code>get_game_dir</code></a></h2><p>
 Returns the location within sandbox storage that the game is running. When developing your game, this value will be your <code>mygame</code> directory. In production, it'll return a value that is OS specific (eg the Roaming directory on Windows or the Application Support directory on Mac).
 </p><p>
 Invocations of ~(write|append)_file will write to this sandboxed directory.
-</p></div><div><h2 id="----get_game_dir_url-"><a href="#----get_game_dir_url-"><code>get_game_dir_url</code></a></h2><p>
+</p></div><div id="section----get_game_dir_url-"><h2 id="----get_game_dir_url-"><a href="#----get_game_dir_url-"><code>get_game_dir_url</code></a></h2><p>
 Returns a url encoded string representing the sandbox location for game data.
-</p></div><div><h2 id="----open_game_dir-"><a href="#----open_game_dir-"><code>open_game_dir</code></a></h2><p>
+</p></div><div id="section----open_game_dir-"><h2 id="----open_game_dir-"><a href="#----open_game_dir-"><code>open_game_dir</code></a></h2><p>
 Opens the game directory in the OS's file explorer. This should be used for debugging purposes only.
-</p></div><div><h2 id="----write_file_root-"><a href="#----write_file_root-"><code>write_file_root</code></a></h2><p>
+</p></div><div id="section----write_file_root-"><h2 id="----write_file_root-"><a href="#----write_file_root-"><code>write_file_root</code></a></h2><p>
 Given a file path and contents, the contents will be written to a directory outside of the game directory. This method should be used for development purposes only. In production this method will write to the same sandboxed location as <code>write_file</code>.
-</p></div><div><h2 id="----append_file_root-"><a href="#----append_file_root-"><code>append_file_root</code></a></h2><p>
+</p></div><div id="section----append_file_root-"><h2 id="----append_file_root-"><a href="#----append_file_root-"><code>append_file_root</code></a></h2><p>
 Has the same behavior as <code>write_file_root</code> except that it appends the contents as opposed to overwriting them.
-</p></div><div><h2 id="----argv-"><a href="#----argv-"><code>argv</code></a></h2><p>
+</p></div><div id="section----argv-"><h2 id="----argv-"><a href="#----argv-"><code>argv</code></a></h2><p>
 Returns a string representing the command line arguments passed to the DragonRuby binary. This should be used for development/debugging purposes only.
-</p></div><div><h2 id="----cli_arguments-"><a href="#----cli_arguments-"><code>cli_arguments</code></a></h2><p>
+</p></div><div id="section----cli_arguments-"><h2 id="----cli_arguments-"><a href="#----cli_arguments-"><code>cli_arguments</code></a></h2><p>
 Returns a <code>Hash</code> for command line arguments in the format of <code>--switch value</code> (two hyphens preceding the switch flag with the value seperated by a space). This should be used for development/debugging purposes only.
-</p></div><div><h2 id="----reload_history-"><a href="#----reload_history-"><code>reload_history</code></a></h2><p>
+</p></div><div id="section----reload_history-"><h2 id="----reload_history-"><a href="#----reload_history-"><code>reload_history</code></a></h2><p>
 Returns a <code>Hash</code> representing the code files that have be loaded for your game along with timings for the events. This should be used for development/debugging purposes only.
-</p></div><div><h2 id="----reload_history_pending-"><a href="#----reload_history_pending-"><code>reload_history_pending</code></a></h2><p>
+</p></div><div id="section----reload_history_pending-"><h2 id="----reload_history_pending-"><a href="#----reload_history_pending-"><code>reload_history_pending</code></a></h2><p>
 Returns a <code>Hash</code> for files that have been queued for reload, but haven't been processed yet. This should be used for development/debugging purposes only.
-</p></div><div><h2 id="----reload_if_needed-"><a href="#----reload_if_needed-"><code>reload_if_needed</code></a></h2><p>
+</p></div><div id="section----reload_if_needed-"><h2 id="----reload_if_needed-"><a href="#----reload_if_needed-"><code>reload_if_needed</code></a></h2><p>
 Given a file name, this function will queue the file for reload if it's been modified. An optional second parameter can be passed in to signify if the file should be forced loaded regardless of modified time (<code>true</code> means to force load, <code>false</code> means to load only if the file has been modified). This function should be used for development/debugging purposes only.
 </p></div></div><div id="section---args-state-"><h1 id="---args-state-"><a href="#---args-state-"><code>args.state</code></a></h1><p>
 Store your game state inside of this <code>state</code>. Properties with arbitrary nesting is allowed and a backing Entity will be created on your behalf.
@@ -534,21 +534,21 @@ Store your game state inside of this <code>state</code>. Properties with arbitra
   args.state.player.x ||= 0
   args.state.player.y ||= 0
 end
-</code></pre><div><h2 id="----args-state---entity_id-"><a href="#----args-state---entity_id-"><code>args.state.*.entity_id</code></a></h2><p>
+</code></pre><div id="section----args-state---entity_id-"><h2 id="----args-state---entity_id-"><a href="#----args-state---entity_id-"><code>args.state.*.entity_id</code></a></h2><p>
 Entities automatically receive an <code>entity_id</code> of type <code>Fixnum</code>.
-</p></div><div><h2 id="----args-state---entity_type-"><a href="#----args-state---entity_type-"><code>args.state.*.entity_type</code></a></h2><p>
+</p></div><div id="section----args-state---entity_type-"><h2 id="----args-state---entity_type-"><a href="#----args-state---entity_type-"><code>args.state.*.entity_type</code></a></h2><p>
 Entities can have an <code>entity_type</code> which is represented as a <code>Symbol</code>.
-</p></div><div><h2 id="----args-state---created_at-"><a href="#----args-state---created_at-"><code>args.state.*.created_at</code></a></h2><p>
+</p></div><div id="section----args-state---created_at-"><h2 id="----args-state---created_at-"><a href="#----args-state---created_at-"><code>args.state.*.created_at</code></a></h2><p>
 Entities have <code>created_at</code> set to <code>args.state.tick_count</code> when they are created.
-</p></div><div><h2 id="----args-state---created_at_elapsed-"><a href="#----args-state---created_at_elapsed-"><code>args.state.*.created_at_elapsed</code></a></h2><p>
+</p></div><div id="section----args-state---created_at_elapsed-"><h2 id="----args-state---created_at_elapsed-"><a href="#----args-state---created_at_elapsed-"><code>args.state.*.created_at_elapsed</code></a></h2><p>
 Returns the elapsed number of ticks since creation.
-</p></div><div><h2 id="----args-state---global_created_at-"><a href="#----args-state---global_created_at-"><code>args.state.*.global_created_at</code></a></h2><p>
+</p></div><div id="section----args-state---global_created_at-"><h2 id="----args-state---global_created_at-"><a href="#----args-state---global_created_at-"><code>args.state.*.global_created_at</code></a></h2><p>
 Entities have <code>global_created_at</code> set to <code>Kernel.global_tick_count</code> when they are created.
-</p></div><div><h2 id="----args-state---global_created_at_elapsed-"><a href="#----args-state---global_created_at_elapsed-"><code>args.state.*.global_created_at_elapsed</code></a></h2><p>
+</p></div><div id="section----args-state---global_created_at_elapsed-"><h2 id="----args-state---global_created_at_elapsed-"><a href="#----args-state---global_created_at_elapsed-"><code>args.state.*.global_created_at_elapsed</code></a></h2><p>
 Returns the elapsed number of global ticks since creation.
-</p></div><div><h2 id="----args-state---as_hash-"><a href="#----args-state---as_hash-"><code>args.state.*.as_hash</code></a></h2><p>
+</p></div><div id="section----args-state---as_hash-"><h2 id="----args-state---as_hash-"><a href="#----args-state---as_hash-"><code>args.state.*.as_hash</code></a></h2><p>
 Entity cast to a <code>Hash</code> so you can update values as if you were updating a <code>Hash</code>.
-</p></div><div><h2 id="----args-state-new_entity-"><a href="#----args-state-new_entity-"><code>args.state.new_entity</code></a></h2><p>
+</p></div><div id="section----args-state-new_entity-"><h2 id="----args-state-new_entity-"><a href="#----args-state-new_entity-"><code>args.state.new_entity</code></a></h2><p>
 Creates a new Entity with a <code>type</code>, and initial properties. An option block can be passed to change the newly created entity:
 </p><pre><code class="language-ruby">def tick args
   args.state.player ||= args.state.new_entity :player, x: 0, y: 0 do |e|
@@ -556,115 +556,115 @@ Creates a new Entity with a <code>type</code>, and initial properties. An option
     e.hp     = e.max_hp * rand
   end
 end
-</code></pre></div><div><h2 id="----args-state-new_entity_strict-"><a href="#----args-state-new_entity_strict-"><code>args.state.new_entity_strict</code></a></h2><p>
+</code></pre></div><div id="section----args-state-new_entity_strict-"><h2 id="----args-state-new_entity_strict-"><a href="#----args-state-new_entity_strict-"><code>args.state.new_entity_strict</code></a></h2><p>
 Creates a new Strict Entity. While Entities created via <code>args.state.new_entity</code> can have new properties added later on, Entities created using <code>args.state.new_entity</code> must define all properties that are allowed during its initialization. Attempting to add new properties after initialization will result in an exception.
-</p></div><div><h2 id="----args-state-tick_count-"><a href="#----args-state-tick_count-"><code>args.state.tick_count</code></a></h2><p>
+</p></div><div id="section----args-state-tick_count-"><h2 id="----args-state-tick_count-"><a href="#----args-state-tick_count-"><code>args.state.tick_count</code></a></h2><p>
 Returns the current tick of the game. <code>args.state.tick_count</code> is <code>0</code> when the game is first started or if the game is reset via <code>$gtk.reset</code>.
 </p></div></div><div id="section---args-inputs-"><h1 id="---args-inputs-"><a href="#---args-inputs-"><code>args.inputs</code></a></h1><p>
 Access using input using <code>args.inputs</code>.
-</p><div><h2 id="----args-inputs-up-"><a href="#----args-inputs-up-"><code>args.inputs.up</code></a></h2><p>
+</p><div id="section----args-inputs-up-"><h2 id="----args-inputs-up-"><a href="#----args-inputs-up-"><code>args.inputs.up</code></a></h2><p>
 Returns <code>true</code> if: the <code>up</code> arrow or <code>w</code> key is pressed or held on the <code>keyboard</code>; or if <code>up</code> is pressed or held on <code>controller_one</code>; or if the <code>left_analog</code> on <code>controller_one</code> is tilted upwards.
-</p></div><div><h2 id="----args-inputs-down-"><a href="#----args-inputs-down-"><code>args.inputs.down</code></a></h2><p>
+</p></div><div id="section----args-inputs-down-"><h2 id="----args-inputs-down-"><a href="#----args-inputs-down-"><code>args.inputs.down</code></a></h2><p>
 Returns <code>true</code> if: the <code>down</code> arrow or <code>s</code> key is pressed or held on the <code>keyboard</code>; or if <code>down</code> is pressed or held on <code>controller_one</code>; or if the <code>left_analog</code> on <code>controller_one</code> is tilted downwards.
-</p></div><div><h2 id="----args-inputs-left-"><a href="#----args-inputs-left-"><code>args.inputs.left</code></a></h2><p>
+</p></div><div id="section----args-inputs-left-"><h2 id="----args-inputs-left-"><a href="#----args-inputs-left-"><code>args.inputs.left</code></a></h2><p>
 Returns <code>true</code> if: the <code>left</code> arrow or <code>a</code> key is pressed or held on the <code>keyboard</code>; or if <code>left</code> is pressed or held on <code>controller_one</code>; or if the <code>left_analog</code> on <code>controller_one</code> is tilted to the left.
-</p></div><div><h2 id="----args-inputs-right-"><a href="#----args-inputs-right-"><code>args.inputs.right</code></a></h2><p>
+</p></div><div id="section----args-inputs-right-"><h2 id="----args-inputs-right-"><a href="#----args-inputs-right-"><code>args.inputs.right</code></a></h2><p>
 Returns <code>true</code> if: the <code>right</code> arrow or <code>d</code> key is pressed or held on the <code>keyboard</code>; or if <code>right</code> is pressed or held on <code>controller_one</code>; or if the <code>left_analog</code> on <code>controller_one</code> is tilted to the right.
-</p></div><div><h2 id="----args-inputs-left_right-"><a href="#----args-inputs-left_right-"><code>args.inputs.left_right</code></a></h2><p>
+</p></div><div id="section----args-inputs-left_right-"><h2 id="----args-inputs-left_right-"><a href="#----args-inputs-left_right-"><code>args.inputs.left_right</code></a></h2><p>
 Returns <code>-1</code> (left), <code>0</code> (neutral), or <code>+1</code> (right) depending on results of <code>args.inputs.left</code> and <code>args.inputs.right</code>.
 </p><pre><code class="language-ruby">args.state.player[:x] += args.inputs.left_right * args.state.speed
-</code></pre></div><div><h2 id="----args-inputs-up_down-"><a href="#----args-inputs-up_down-"><code>args.inputs.up_down</code></a></h2><p>
+</code></pre></div><div id="section----args-inputs-up_down-"><h2 id="----args-inputs-up_down-"><a href="#----args-inputs-up_down-"><code>args.inputs.up_down</code></a></h2><p>
 Returns <code>-1</code> (down), <code>0</code> (neutral), or <code>+1</code> (up) depending on results of <code>args.inputs.down</code> and <code>args.inputs.up</code>.
 </p><pre><code class="language-ruby">args.state.player[:y] += args.inputs.up_down * args.state.speed
-</code></pre></div><div><h2 id="----args-inputs-text--or--args-inputs-history-"><a href="#----args-inputs-text--or--args-inputs-history-"><code>args.inputs.text</code> OR <code>args.inputs.history</code></a></h2><p>
+</code></pre></div><div id="section----args-inputs-text--or--args-inputs-history-"><h2 id="----args-inputs-text--or--args-inputs-history-"><a href="#----args-inputs-text--or--args-inputs-history-"><code>args.inputs.text</code> OR <code>args.inputs.history</code></a></h2><p>
 Returns a string that represents the last key that was pressed on the keyboard.
-</p></div><div><h2 id="----args-inputs-mouse-"><a href="#----args-inputs-mouse-"><code>args.inputs.mouse</code></a></h2><p>
+</p></div><div id="section----args-inputs-mouse-"><h2 id="----args-inputs-mouse-"><a href="#----args-inputs-mouse-"><code>args.inputs.mouse</code></a></h2><p>
 Represents the user's mouse.
-</p><div><h3 id="-----args-inputs-mouse-has_focus-"><a href="#-----args-inputs-mouse-has_focus-"><code>args.inputs.mouse.has_focus</code></a></h3><p>
+</p><div id="section-----args-inputs-mouse-has_focus-"><h3 id="-----args-inputs-mouse-has_focus-"><a href="#-----args-inputs-mouse-has_focus-"><code>args.inputs.mouse.has_focus</code></a></h3><p>
 Return's true if the game has mouse focus.
-</p></div><div><h3 id="-----args-inputs-mouse-x-"><a href="#-----args-inputs-mouse-x-"><code>args.inputs.mouse.x</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-x-"><h3 id="-----args-inputs-mouse-x-"><a href="#-----args-inputs-mouse-x-"><code>args.inputs.mouse.x</code></a></h3><p>
 Returns the current <code>x</code> location of the mouse.
-</p></div><div><h3 id="-----args-inputs-mouse-y-"><a href="#-----args-inputs-mouse-y-"><code>args.inputs.mouse.y</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-y-"><h3 id="-----args-inputs-mouse-y-"><a href="#-----args-inputs-mouse-y-"><code>args.inputs.mouse.y</code></a></h3><p>
 Returns the current <code>y</code> location of the mouse.
-</p></div><div><h3 id="-----args-inputs-mouse-inside_rect--rect-"><a href="#-----args-inputs-mouse-inside_rect--rect-"><code>args.inputs.mouse.inside_rect? rect</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-inside_rect--rect-"><h3 id="-----args-inputs-mouse-inside_rect--rect-"><a href="#-----args-inputs-mouse-inside_rect--rect-"><code>args.inputs.mouse.inside_rect? rect</code></a></h3><p>
 Return. <code>args.inputs.mouse.inside_rect?</code> takes in any primitive that responds to <code>x, y, w, h</code>:
-</p></div><div><h3 id="-----args-inputs-mouse-inside_circle--center_point--radius-"><a href="#-----args-inputs-mouse-inside_circle--center_point--radius-"><code>args.inputs.mouse.inside_circle? center_point, radius</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-inside_circle--center_point--radius-"><h3 id="-----args-inputs-mouse-inside_circle--center_point--radius-"><a href="#-----args-inputs-mouse-inside_circle--center_point--radius-"><code>args.inputs.mouse.inside_circle? center_point, radius</code></a></h3><p>
 Returns <code>true</code> if the mouse is inside of a specified circle. <code>args.inputs.mouse.inside_circle?</code> takes in any primitive that responds to <code>x, y</code> (which represents the circle's center), and takes in a <code>radius</code>:
-</p></div><div><h3 id="-----args-inputs-mouse-moved-"><a href="#-----args-inputs-mouse-moved-"><code>args.inputs.mouse.moved</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-moved-"><h3 id="-----args-inputs-mouse-moved-"><a href="#-----args-inputs-mouse-moved-"><code>args.inputs.mouse.moved</code></a></h3><p>
 Returns <code>true</code> if the mouse has moved on the current frame.
-</p></div><div><h3 id="-----args-inputs-mouse-button_left-"><a href="#-----args-inputs-mouse-button_left-"><code>args.inputs.mouse.button_left</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-button_left-"><h3 id="-----args-inputs-mouse-button_left-"><a href="#-----args-inputs-mouse-button_left-"><code>args.inputs.mouse.button_left</code></a></h3><p>
 Returns <code>true</code> if the left mouse button is down.
-</p></div><div><h3 id="-----args-inputs-mouse-button_middle-"><a href="#-----args-inputs-mouse-button_middle-"><code>args.inputs.mouse.button_middle</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-button_middle-"><h3 id="-----args-inputs-mouse-button_middle-"><a href="#-----args-inputs-mouse-button_middle-"><code>args.inputs.mouse.button_middle</code></a></h3><p>
 Returns <code>true</code> if the middle mouse button is down.
-</p></div><div><h3 id="-----args-inputs-mouse-button_right-"><a href="#-----args-inputs-mouse-button_right-"><code>args.inputs.mouse.button_right</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-button_right-"><h3 id="-----args-inputs-mouse-button_right-"><a href="#-----args-inputs-mouse-button_right-"><code>args.inputs.mouse.button_right</code></a></h3><p>
 Returns <code>true</code> if the right mouse button is down.
-</p></div><div><h3 id="-----args-inputs-mouse-button_bits-"><a href="#-----args-inputs-mouse-button_bits-"><code>args.inputs.mouse.button_bits</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-button_bits-"><h3 id="-----args-inputs-mouse-button_bits-"><a href="#-----args-inputs-mouse-button_bits-"><code>args.inputs.mouse.button_bits</code></a></h3><p>
 Returns a bitmask for all buttons on the mouse: <code>1</code> for a button in the <code>down</code> state, <code>0</code> for a button in the <code>up</code> state.
-</p></div><div><h3 id="-----args-inputs-mouse-wheel-"><a href="#-----args-inputs-mouse-wheel-"><code>args.inputs.mouse.wheel</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-wheel-"><h3 id="-----args-inputs-mouse-wheel-"><a href="#-----args-inputs-mouse-wheel-"><code>args.inputs.mouse.wheel</code></a></h3><p>
 Represents the mouse wheel. Returns <code>nil</code> if no mouse wheel actions occurred.
-</p></div><div><h3 id="-----args-inputs-mouse-wheel-x-"><a href="#-----args-inputs-mouse-wheel-x-"><code>args.inputs.mouse.wheel.x</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-wheel-x-"><h3 id="-----args-inputs-mouse-wheel-x-"><a href="#-----args-inputs-mouse-wheel-x-"><code>args.inputs.mouse.wheel.x</code></a></h3><p>
 Returns the negative or positive number if the mouse wheel has changed in the <code>x</code> axis.
-</p></div><div><h3 id="-----args-inputs-mouse-wheel-y-"><a href="#-----args-inputs-mouse-wheel-y-"><code>args.inputs.mouse.wheel.y</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-wheel-y-"><h3 id="-----args-inputs-mouse-wheel-y-"><a href="#-----args-inputs-mouse-wheel-y-"><code>args.inputs.mouse.wheel.y</code></a></h3><p>
 Returns the negative or positive number if the mouse wheel has changed in the <code>y</code> axis.
-</p></div><div><h3 id="-----args-inputs-mouse-click--or---down-----previous_click-----up-"><a href="#-----args-inputs-mouse-click--or---down-----previous_click-----up-"><code>args.inputs.mouse.click</code> OR <code>.down</code>, <code>.previous_click</code>, <code>.up</code></a></h3><p>
+</p></div><div id="section-----args-inputs-mouse-click--or---down-----previous_click-----up-"><h3 id="-----args-inputs-mouse-click--or---down-----previous_click-----up-"><a href="#-----args-inputs-mouse-click--or---down-----previous_click-----up-"><code>args.inputs.mouse.click</code> OR <code>.down</code>, <code>.previous_click</code>, <code>.up</code></a></h3><p>
 The properties <code>args.inputs.mouse.(click|down|previous_click|up)</code> each return <code>nil</code> if the mouse button event didn't occur. And return an Entity that has an <code>x</code>, <code>y</code> properties along with helper functions to determine collision: <code>inside_rect?</code>, <code>inside_circle</code>.
-</p></div></div><div><h2 id="----args-inputs-controller_(one-four)-"><a href="#----args-inputs-controller_(one-four)-"><code>args.inputs.controller_(one-four)</code></a></h2><p>
+</p></div></div><div id="section----args-inputs-controller_(one-four)-"><h2 id="----args-inputs-controller_(one-four)-"><a href="#----args-inputs-controller_(one-four)-"><code>args.inputs.controller_(one-four)</code></a></h2><p>
 Represents controllers connected to the usb ports.
-</p><div><h3 id="-----args-inputs-controller_(one-four)-up-"><a href="#-----args-inputs-controller_(one-four)-up-"><code>args.inputs.controller_(one-four).up</code></a></h3><p>
+</p><div id="section-----args-inputs-controller_(one-four)-up-"><h3 id="-----args-inputs-controller_(one-four)-up-"><a href="#-----args-inputs-controller_(one-four)-up-"><code>args.inputs.controller_(one-four).up</code></a></h3><p>
 Returns <code>true</code> if <code>up</code> is pressed or held on the directional or left analog.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-down-"><a href="#-----args-inputs-controller_(one-four)-down-"><code>args.inputs.controller_(one-four).down</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-down-"><h3 id="-----args-inputs-controller_(one-four)-down-"><a href="#-----args-inputs-controller_(one-four)-down-"><code>args.inputs.controller_(one-four).down</code></a></h3><p>
 Returns <code>true</code> if <code>down</code> is pressed or held on the directional or left analog.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-left-"><a href="#-----args-inputs-controller_(one-four)-left-"><code>args.inputs.controller_(one-four).left</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-left-"><h3 id="-----args-inputs-controller_(one-four)-left-"><a href="#-----args-inputs-controller_(one-four)-left-"><code>args.inputs.controller_(one-four).left</code></a></h3><p>
 Returns <code>true</code> if <code>left</code> is pressed or held on the directional or left analog.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-right-"><a href="#-----args-inputs-controller_(one-four)-right-"><code>args.inputs.controller_(one-four).right</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-right-"><h3 id="-----args-inputs-controller_(one-four)-right-"><a href="#-----args-inputs-controller_(one-four)-right-"><code>args.inputs.controller_(one-four).right</code></a></h3><p>
 Returns <code>true</code> if <code>right</code> is pressed or held on the directional or left analog.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-left_right-"><a href="#-----args-inputs-controller_(one-four)-left_right-"><code>args.inputs.controller_(one-four).left_right</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-left_right-"><h3 id="-----args-inputs-controller_(one-four)-left_right-"><a href="#-----args-inputs-controller_(one-four)-left_right-"><code>args.inputs.controller_(one-four).left_right</code></a></h3><p>
 Returns <code>-1</code> (left), <code>0</code> (neutral), or <code>+1</code> (right) depending on results of <code>args.inputs.controller_(one-four).left</code> and <code>args.inputs.controller_(one-four).right</code>.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-up_down-"><a href="#-----args-inputs-controller_(one-four)-up_down-"><code>args.inputs.controller_(one-four).up_down</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-up_down-"><h3 id="-----args-inputs-controller_(one-four)-up_down-"><a href="#-----args-inputs-controller_(one-four)-up_down-"><code>args.inputs.controller_(one-four).up_down</code></a></h3><p>
 Returns <code>-1</code> (down), <code>0</code> (neutral), or <code>+1</code> (up) depending on results of <code>args.inputs.controller_(one-four).up</code> and <code>args.inputs.controller_(one-four).down</code>.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-(left_analog_x_raw|right_analog_x_raw)-"><a href="#-----args-inputs-controller_(one-four)-(left_analog_x_raw|right_analog_x_raw)-"><code>args.inputs.controller_(one-four).(left_analog_x_raw|right_analog_x_raw)</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-(left_analog_x_raw|right_analog_x_raw)-"><h3 id="-----args-inputs-controller_(one-four)-(left_analog_x_raw|right_analog_x_raw)-"><a href="#-----args-inputs-controller_(one-four)-(left_analog_x_raw|right_analog_x_raw)-"><code>args.inputs.controller_(one-four).(left_analog_x_raw|right_analog_x_raw)</code></a></h3><p>
 Returns the raw integer value for the analog's horizontal movement (<code>-32,000 to +32,000</code>).
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-left_analog_y_raw|right_analog_y_raw)-"><a href="#-----args-inputs-controller_(one-four)-left_analog_y_raw|right_analog_y_raw)-"><code>args.inputs.controller_(one-four).left_analog_y_raw|right_analog_y_raw)</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-left_analog_y_raw|right_analog_y_raw)-"><h3 id="-----args-inputs-controller_(one-four)-left_analog_y_raw|right_analog_y_raw)-"><a href="#-----args-inputs-controller_(one-four)-left_analog_y_raw|right_analog_y_raw)-"><code>args.inputs.controller_(one-four).left_analog_y_raw|right_analog_y_raw)</code></a></h3><p>
 Returns the raw integer value for the analog's vertical movement (<code>-32,000 to +32,000</code>).
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-left_analog_x_perc|right_analog_x_perc)-"><a href="#-----args-inputs-controller_(one-four)-left_analog_x_perc|right_analog_x_perc)-"><code>args.inputs.controller_(one-four).left_analog_x_perc|right_analog_x_perc)</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-left_analog_x_perc|right_analog_x_perc)-"><h3 id="-----args-inputs-controller_(one-four)-left_analog_x_perc|right_analog_x_perc)-"><a href="#-----args-inputs-controller_(one-four)-left_analog_x_perc|right_analog_x_perc)-"><code>args.inputs.controller_(one-four).left_analog_x_perc|right_analog_x_perc)</code></a></h3><p>
 Returns a number between <code>-1</code> and <code>1</code> which represents the percentage the analog is moved horizontally as a ratio of the maximum horizontal movement.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-left_analog_y_perc|right_analog_y_perc)-"><a href="#-----args-inputs-controller_(one-four)-left_analog_y_perc|right_analog_y_perc)-"><code>args.inputs.controller_(one-four).left_analog_y_perc|right_analog_y_perc)</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-left_analog_y_perc|right_analog_y_perc)-"><h3 id="-----args-inputs-controller_(one-four)-left_analog_y_perc|right_analog_y_perc)-"><a href="#-----args-inputs-controller_(one-four)-left_analog_y_perc|right_analog_y_perc)-"><code>args.inputs.controller_(one-four).left_analog_y_perc|right_analog_y_perc)</code></a></h3><p>
 Returns a number between <code>-1</code> and <code>1</code> which represents the percentage the analog is moved vertically as a ratio of the maximum vertical movement.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-directional_up-"><a href="#-----args-inputs-controller_(one-four)-directional_up-"><code>args.inputs.controller_(one-four).directional_up</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-directional_up-"><h3 id="-----args-inputs-controller_(one-four)-directional_up-"><a href="#-----args-inputs-controller_(one-four)-directional_up-"><code>args.inputs.controller_(one-four).directional_up</code></a></h3><p>
 Returns <code>true</code> if <code>up</code> is pressed or held on the directional.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-directional_down-"><a href="#-----args-inputs-controller_(one-four)-directional_down-"><code>args.inputs.controller_(one-four).directional_down</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-directional_down-"><h3 id="-----args-inputs-controller_(one-four)-directional_down-"><a href="#-----args-inputs-controller_(one-four)-directional_down-"><code>args.inputs.controller_(one-four).directional_down</code></a></h3><p>
 Returns <code>true</code> if <code>down</code> is pressed or held on the directional.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-directional_left-"><a href="#-----args-inputs-controller_(one-four)-directional_left-"><code>args.inputs.controller_(one-four).directional_left</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-directional_left-"><h3 id="-----args-inputs-controller_(one-four)-directional_left-"><a href="#-----args-inputs-controller_(one-four)-directional_left-"><code>args.inputs.controller_(one-four).directional_left</code></a></h3><p>
 Returns <code>true</code> if <code>left</code> is pressed or held on the directional.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-directional_right-"><a href="#-----args-inputs-controller_(one-four)-directional_right-"><code>args.inputs.controller_(one-four).directional_right</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-directional_right-"><h3 id="-----args-inputs-controller_(one-four)-directional_right-"><a href="#-----args-inputs-controller_(one-four)-directional_right-"><code>args.inputs.controller_(one-four).directional_right</code></a></h3><p>
 Returns <code>true</code> if <code>right</code> is pressed or held on the directional.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-(a|b|x|y|l1|r1|l2|r2|l3|r3|start|select)-"><a href="#-----args-inputs-controller_(one-four)-(a|b|x|y|l1|r1|l2|r2|l3|r3|start|select)-"><code>args.inputs.controller_(one-four).(a|b|x|y|l1|r1|l2|r2|l3|r3|start|select)</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-(a|b|x|y|l1|r1|l2|r2|l3|r3|start|select)-"><h3 id="-----args-inputs-controller_(one-four)-(a|b|x|y|l1|r1|l2|r2|l3|r3|start|select)-"><a href="#-----args-inputs-controller_(one-four)-(a|b|x|y|l1|r1|l2|r2|l3|r3|start|select)-"><code>args.inputs.controller_(one-four).(a|b|x|y|l1|r1|l2|r2|l3|r3|start|select)</code></a></h3><p>
 Returns <code>true</code> if the specific button is pressed or held.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-truthy_keys-"><a href="#-----args-inputs-controller_(one-four)-truthy_keys-"><code>args.inputs.controller_(one-four).truthy_keys</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-truthy_keys-"><h3 id="-----args-inputs-controller_(one-four)-truthy_keys-"><a href="#-----args-inputs-controller_(one-four)-truthy_keys-"><code>args.inputs.controller_(one-four).truthy_keys</code></a></h3><p>
 Returns a collection of <code>Symbol</code>s that represent all keys that are in the pressed or held state.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-key_down-"><a href="#-----args-inputs-controller_(one-four)-key_down-"><code>args.inputs.controller_(one-four).key_down</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-key_down-"><h3 id="-----args-inputs-controller_(one-four)-key_down-"><a href="#-----args-inputs-controller_(one-four)-key_down-"><code>args.inputs.controller_(one-four).key_down</code></a></h3><p>
 Returns <code>true</code> if the specific button was pressed on this frame. <code>args.inputs.controller_(one-four).key_down.BUTTON</code> will only be true on the frame it was pressed.
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-key_held-"><a href="#-----args-inputs-controller_(one-four)-key_held-"><code>args.inputs.controller_(one-four).key_held</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-key_held-"><h3 id="-----args-inputs-controller_(one-four)-key_held-"><a href="#-----args-inputs-controller_(one-four)-key_held-"><code>args.inputs.controller_(one-four).key_held</code></a></h3><p>
 Returns <code>true</code> if the specific button is being held. <code>args.inputs.controller_(one-four).key_held.BUTTON</code> will be true for all frames after <code>key_down</code> (until released).
-</p></div><div><h3 id="-----args-inputs-controller_(one-four)-key_up-"><a href="#-----args-inputs-controller_(one-four)-key_up-"><code>args.inputs.controller_(one-four).key_up</code></a></h3><p>
+</p></div><div id="section-----args-inputs-controller_(one-four)-key_up-"><h3 id="-----args-inputs-controller_(one-four)-key_up-"><a href="#-----args-inputs-controller_(one-four)-key_up-"><code>args.inputs.controller_(one-four).key_up</code></a></h3><p>
 Returns <code>true</code> if the specific button was released. <code>args.inputs.controller_(one-four).key_up.BUTTON</code> will be true only on the frame the button was released.
-</p></div></div><div><h2 id="----args-inputs-keyboard-"><a href="#----args-inputs-keyboard-"><code>args.inputs.keyboard</code></a></h2><p>
+</p></div></div><div id="section----args-inputs-keyboard-"><h2 id="----args-inputs-keyboard-"><a href="#----args-inputs-keyboard-"><code>args.inputs.keyboard</code></a></h2><p>
 Represents the user's keyboard
-</p><div><h3 id="-----args-inputs-keyboard-has_focus-"><a href="#-----args-inputs-keyboard-has_focus-"><code>args.inputs.keyboard.has_focus</code></a></h3><p>
+</p><div id="section-----args-inputs-keyboard-has_focus-"><h3 id="-----args-inputs-keyboard-has_focus-"><a href="#-----args-inputs-keyboard-has_focus-"><code>args.inputs.keyboard.has_focus</code></a></h3><p>
 Returns <code>true</code> if the game has keyboard focus.
-</p></div><div><h3 id="-----args-inputs-keyboard-up-"><a href="#-----args-inputs-keyboard-up-"><code>args.inputs.keyboard.up</code></a></h3><p>
+</p></div><div id="section-----args-inputs-keyboard-up-"><h3 id="-----args-inputs-keyboard-up-"><a href="#-----args-inputs-keyboard-up-"><code>args.inputs.keyboard.up</code></a></h3><p>
 Returns <code>true</code> if <code>up</code> or <code>w</code> is pressed or held on the keyboard.
-</p></div><div><h3 id="-----args-inputs-keyboard-down-"><a href="#-----args-inputs-keyboard-down-"><code>args.inputs.keyboard.down</code></a></h3><p>
+</p></div><div id="section-----args-inputs-keyboard-down-"><h3 id="-----args-inputs-keyboard-down-"><a href="#-----args-inputs-keyboard-down-"><code>args.inputs.keyboard.down</code></a></h3><p>
 Returns <code>true</code> if <code>down</code> or <code>s</code> is pressed or held on the keyboard.
-</p></div><div><h3 id="-----args-inputs-keyboard-left-"><a href="#-----args-inputs-keyboard-left-"><code>args.inputs.keyboard.left</code></a></h3><p>
+</p></div><div id="section-----args-inputs-keyboard-left-"><h3 id="-----args-inputs-keyboard-left-"><a href="#-----args-inputs-keyboard-left-"><code>args.inputs.keyboard.left</code></a></h3><p>
 Returns <code>true</code> if <code>left</code> or <code>a</code> is pressed or held on the keyboard.
-</p></div><div><h3 id="-----args-inputs-keyboard-right-"><a href="#-----args-inputs-keyboard-right-"><code>args.inputs.keyboard.right</code></a></h3><p>
+</p></div><div id="section-----args-inputs-keyboard-right-"><h3 id="-----args-inputs-keyboard-right-"><a href="#-----args-inputs-keyboard-right-"><code>args.inputs.keyboard.right</code></a></h3><p>
 Returns <code>true</code> if <code>right</code> or <code>d</code> is pressed or held on the keyboard.
-</p></div><div><h3 id="-----args-inputs-keyboard-left_right-"><a href="#-----args-inputs-keyboard-left_right-"><code>args.inputs.keyboard.left_right</code></a></h3><p>
+</p></div><div id="section-----args-inputs-keyboard-left_right-"><h3 id="-----args-inputs-keyboard-left_right-"><a href="#-----args-inputs-keyboard-left_right-"><code>args.inputs.keyboard.left_right</code></a></h3><p>
 Returns <code>-1</code> (left), <code>0</code> (neutral), or <code>+1</code> (right) depending on results of <code>args.inputs.keyboard.left</code> and <code>args.inputs.keyboard.right</code>.
-</p></div><div><h3 id="-----args-inputs-keyboard-up_down-"><a href="#-----args-inputs-keyboard-up_down-"><code>args.inputs.keyboard.up_down</code></a></h3><p>
+</p></div><div id="section-----args-inputs-keyboard-up_down-"><h3 id="-----args-inputs-keyboard-up_down-"><a href="#-----args-inputs-keyboard-up_down-"><code>args.inputs.keyboard.up_down</code></a></h3><p>
 Returns <code>-1</code> (left), <code>0</code> (neutral), or <code>+1</code> (right) depending on results of <code>args.inputs.keyboard.up</code> and <code>args.inputs.keyboard.up</code>.
-</p></div><div><h3 id="----keyboard-properties"><a href="#----keyboard-properties">keyboard properties</a></h3><p>
+</p></div><div id="section----keyboard-properties"><h3 id="----keyboard-properties"><a href="#----keyboard-properties">keyboard properties</a></h3><p>
 The following properties represent keys on the keyboard and are available on <code>args.inputs.keyboard.KEY</code>, <code>args.inputs.keyboard.key_down.KEY</code>, <code>args.inputs.keyboard.key_held.KEY</code>, and <code>args.inputs.keyboard.key_up.KEY</code>:
 </p><ul>
 <li><code>alt</code></li>
@@ -727,18 +727,18 @@ The following properties represent keys on the keyboard and are available on <co
 <li><code>up_down</code></li>
 <li><code>directional_vector</code></li>
 <li><code>truthy_keys</code></li>
-</ul></div><div><h3 id="-----inputs-keyboard-keys-"><a href="#-----inputs-keyboard-keys-"><code>inputs.keyboard.keys</code></a></h3><p>
+</ul></div><div id="section-----inputs-keyboard-keys-"><h3 id="-----inputs-keyboard-keys-"><a href="#-----inputs-keyboard-keys-"><code>inputs.keyboard.keys</code></a></h3><p>
 Returns a <code>Hash</code> with all keys on the keyboard in their respective state. The <code>Hash</code> contains the following <code>keys</code>
 </p><ul>
 <li><code>:down</code></li>
 <li><code>:held</code></li>
 <li><code>:down_or_held</code></li>
 <li><code>:up</code></li>
-</ul></div></div><div><h2 id="----args-inputs-touch-"><a href="#----args-inputs-touch-"><code>args.inputs.touch</code></a></h2><p>
+</ul></div></div><div id="section----args-inputs-touch-"><h2 id="----args-inputs-touch-"><a href="#----args-inputs-touch-"><code>args.inputs.touch</code></a></h2><p>
 Returns a <code>Hash</code> representing all touch points on a touch device. This api is only available in Indie, and Pro versions.
-</p></div><div><h2 id="----args-inputs-finger_left-"><a href="#----args-inputs-finger_left-"><code>args.inputs.finger_left</code></a></h2><p>
+</p></div><div id="section----args-inputs-finger_left-"><h2 id="----args-inputs-finger_left-"><a href="#----args-inputs-finger_left-"><code>args.inputs.finger_left</code></a></h2><p>
 Returns a <code>Hash</code> with <code>x</code> and <code>y</code> denoting a touch point that is on the left side of the screen. This api is only available in Indie, and Pro versions.
-</p></div><div><h2 id="----args-inputs-finger_right-"><a href="#----args-inputs-finger_right-"><code>args.inputs.finger_right</code></a></h2><p>
+</p></div><div id="section----args-inputs-finger_right-"><h2 id="----args-inputs-finger_right-"><a href="#----args-inputs-finger_right-"><code>args.inputs.finger_right</code></a></h2><p>
 Returns a <code>Hash</code> with <code>x</code> and <code>y</code> denoting a touch point that is on the right side of the screen. This api is only available in Indie, and Pro versions.
 </p></div></div><div id="section---args-outputs-"><h1 id="---args-outputs-"><a href="#---args-outputs-"><code>args.outputs</code></a></h1><p>
 Outputs is how you render primitives to the screen. The minimal setup for rendering something to the screen is via a <code>tick</code> method defined in mygame/app/main.rb
@@ -758,30 +758,30 @@ Primitives are rendered first-in, first-out. The rendering order (sorted by bott
 <li><code>lines</code></li>
 <li><code>borders</code></li>
 <li><code>debug</code>: Accepts all render primitives. Use this to render primitives for debugging (production builds of your game will not render this layer).</li>
-</ul><div><h2 id="----args-outputs-background_color-"><a href="#----args-outputs-background_color-"><code>args.outputs.background_color</code></a></h2><p>
+</ul><div id="section----args-outputs-background_color-"><h2 id="----args-outputs-background_color-"><a href="#----args-outputs-background_color-"><code>args.outputs.background_color</code></a></h2><p>
 Set <code>args.outputs.background_color</code> to an <code>Array</code> with <code>RGB</code> values (eg. <code>[255, 255, 255]</code> for the color white).
-</p></div><div><h2 id="----args-outputs-sounds-"><a href="#----args-outputs-sounds-"><code>args.outputs.sounds</code></a></h2><p>
+</p></div><div id="section----args-outputs-sounds-"><h2 id="----args-outputs-sounds-"><a href="#----args-outputs-sounds-"><code>args.outputs.sounds</code></a></h2><p>
 Send a file path to this collection to play a sound. The sound file must be under the <code>mygame</code> directory.
 </p><pre><code class="language-ruby">args.outputs.sounds &lt;&lt; "sounds/jump.wav"
-</code></pre></div><div><h2 id="----args-outputs-solids-"><a href="#----args-outputs-solids-"><code>args.outputs.solids</code></a></h2><p>
+</code></pre></div><div id="section----args-outputs-solids-"><h2 id="----args-outputs-solids-"><a href="#----args-outputs-solids-"><code>args.outputs.solids</code></a></h2><p>
 Send a Primitive to this collection to render a filled in rectangle to the screen. This collection is cleared at the end of every frame.
-</p></div><div><h2 id="----args-outputs-static_solids-"><a href="#----args-outputs-static_solids-"><code>args.outputs.static_solids</code></a></h2><p>
+</p></div><div id="section----args-outputs-static_solids-"><h2 id="----args-outputs-static_solids-"><a href="#----args-outputs-static_solids-"><code>args.outputs.static_solids</code></a></h2><p>
 Send a Primitive to this collection to render a filled in rectangle to the screen. This collection is not cleared at the end of every frame. And objects can be mutated by reference.
-</p></div><div><h2 id="----args-outputs-sprites-----static_sprites-"><a href="#----args-outputs-sprites-----static_sprites-"><code>args.outputs.sprites</code>, <code>.static_sprites</code></a></h2><p>
+</p></div><div id="section----args-outputs-sprites-----static_sprites-"><h2 id="----args-outputs-sprites-----static_sprites-"><a href="#----args-outputs-sprites-----static_sprites-"><code>args.outputs.sprites</code>, <code>.static_sprites</code></a></h2><p>
 Send a Primitive to this collection to render a sprite to the screen.
-</p></div><div><h2 id="----args-outputs-primitives-----static_primitives-"><a href="#----args-outputs-primitives-----static_primitives-"><code>args.outputs.primitives</code>, <code>.static_primitives</code></a></h2><p>
+</p></div><div id="section----args-outputs-primitives-----static_primitives-"><h2 id="----args-outputs-primitives-----static_primitives-"><a href="#----args-outputs-primitives-----static_primitives-"><code>args.outputs.primitives</code>, <code>.static_primitives</code></a></h2><p>
 Send a Primitive of any type and it'll be rendered. The Primitive must have a <code>primitive_marker</code> that returns <code>:solid</code>, <code>:sprite</code>, <code>:label</code>, <code>:line</code>, <code>:border</code>.
-</p></div><div><h2 id="----args-outputs-labels-----static_labels-"><a href="#----args-outputs-labels-----static_labels-"><code>args.outputs.labels</code>, <code>.static_labels</code></a></h2><p>
+</p></div><div id="section----args-outputs-labels-----static_labels-"><h2 id="----args-outputs-labels-----static_labels-"><a href="#----args-outputs-labels-----static_labels-"><code>args.outputs.labels</code>, <code>.static_labels</code></a></h2><p>
 Send a Primitive to this collection to render text to the screen.
-</p></div><div><h2 id="----args-outputs-lines-----static_lines-"><a href="#----args-outputs-lines-----static_lines-"><code>args.outputs.lines</code>, <code>.static_lines</code></a></h2><p>
+</p></div><div id="section----args-outputs-lines-----static_lines-"><h2 id="----args-outputs-lines-----static_lines-"><a href="#----args-outputs-lines-----static_lines-"><code>args.outputs.lines</code>, <code>.static_lines</code></a></h2><p>
 Send a Primitive to this collection to render a line to the screen.
-</p></div><div><h2 id="----args-outputs-borders-----static_borders-"><a href="#----args-outputs-borders-----static_borders-"><code>args.outputs.borders</code>, <code>.static_borders</code></a></h2><p>
+</p></div><div id="section----args-outputs-borders-----static_borders-"><h2 id="----args-outputs-borders-----static_borders-"><a href="#----args-outputs-borders-----static_borders-"><code>args.outputs.borders</code>, <code>.static_borders</code></a></h2><p>
 Send a Primitive to this collection to render an unfilled rectangle to the screen.
-</p></div><div><h2 id="----args-outputs-debug-----static_debug-"><a href="#----args-outputs-debug-----static_debug-"><code>args.outputs.debug</code>, <code>.static_debug</code></a></h2><p>
+</p></div><div id="section----args-outputs-debug-----static_debug-"><h2 id="----args-outputs-debug-----static_debug-"><a href="#----args-outputs-debug-----static_debug-"><code>args.outputs.debug</code>, <code>.static_debug</code></a></h2><p>
 Send any Primitive to this collection which represents things you render to the screen for debugging purposes. Primitives in this collection will not be rendered in a production release of your game.
 </p></div></div><div id="section---args-easing-"><h1 id="---args-easing-"><a href="#---args-easing-"><code>args.easing</code></a></h1><p>
 A set of functions that allow you to determine the current progression of an easing function.
-</p><div><h2 id="----args-easing-ease-start_tick--current_tick--duration--easing_functions-"><a href="#----args-easing-ease-start_tick--current_tick--duration--easing_functions-"><code>args.easing.ease start_tick, current_tick, duration, easing_functions</code></a></h2><p>
+</p><div id="section----args-easing-ease-start_tick--current_tick--duration--easing_functions-"><h2 id="----args-easing-ease-start_tick--current_tick--duration--easing_functions-"><a href="#----args-easing-ease-start_tick--current_tick--duration--easing_functions-"><code>args.easing.ease start_tick, current_tick, duration, easing_functions</code></a></h2><p>
 Given a start, current, duration, and easing function names, <code>ease</code> returns a number between 0 and 1 that represents the progress of an easing function.
 </p><p>
 The built in easing definitions you have access to are <code>:identity</code>, <code>:flip</code>, <code>:quad</code>, <code>:cube</code>, <code>:quart</code>, and <code>:quint</code>.
@@ -796,7 +796,7 @@ This example will move a box at a linear speed from 0 to 1280.
                                       :identity
   args.outputs.solids &lt;&lt; { x: 1280 * current_progress, y: 360, w: 10, h: 10 }
 end
-</code></pre></div><div><h2 id="----args-easing-ease_spline-start_tick--current_tick--duration--spline-"><a href="#----args-easing-ease_spline-start_tick--current_tick--duration--spline-"><code>args.easing.ease_spline start_tick, current_tick, duration, spline</code></a></h2><p>
+</code></pre></div><div id="section----args-easing-ease_spline-start_tick--current_tick--duration--spline-"><h2 id="----args-easing-ease_spline-start_tick--current_tick--duration--spline-"><a href="#----args-easing-ease_spline-start_tick--current_tick--duration--spline-"><code>args.easing.ease_spline start_tick, current_tick, duration, spline</code></a></h2><p>
 Given a start, current, duration, and a multiple bezier values, this function returns a number between 0 and 1 that represents the progress of an easing function.
 </p><p>
 This example will move a box at a linear speed from 0 to 1280 and then back to 0 using two bezier definitions (represented as an array with four values).
@@ -815,7 +815,7 @@ This example will move a box at a linear speed from 0 to 1280 and then back to 0
 end
 </code></pre></div></div><div id="section---args-string-"><h1 id="---args-string-"><a href="#---args-string-"><code>args.string</code></a></h1><p>
 Useful string functions not included in Ruby core libraries.
-</p><div><h2 id="----args-string-wrapped_lines-string--max_character_length-"><a href="#----args-string-wrapped_lines-string--max_character_length-"><code>args.string.wrapped_lines string, max_character_length</code></a></h2><p>
+</p><div id="section----args-string-wrapped_lines-string--max_character_length-"><h2 id="----args-string-wrapped_lines-string--max_character_length-"><a href="#----args-string-wrapped_lines-string--max_character_length-"><code>args.string.wrapped_lines string, max_character_length</code></a></h2><p>
 This function will return a collection of strings given an input <code>string</code> and <code>max_character_length</code>. The collection of strings returned will split the input string into strings of <code>length &lt;= max_character_length</code>.
 </p><p>
 The following example takes a string with new lines and creates a label for each one. Labels (<code>args.outputs.labels</code>) ignore newline characters <code>\n</code>.
@@ -830,25 +830,25 @@ teger dolor velit, ultricies vitae libero vel, aliquam imperdiet enim."
 end
 </code></pre></div></div><div id="section---args-grid-"><h1 id="---args-grid-"><a href="#---args-grid-"><code>args.grid</code></a></h1><p>
 Returns the virtual grid for the game.
-</p><div><h2 id="----args-grid-name-"><a href="#----args-grid-name-"><code>args.grid.name</code></a></h2><p>
+</p><div id="section----args-grid-name-"><h2 id="----args-grid-name-"><a href="#----args-grid-name-"><code>args.grid.name</code></a></h2><p>
 Returns either <code>:origin_bottom_left</code> or <code>:origin_center</code>.
-</p></div><div><h2 id="----args-grid-bottom-"><a href="#----args-grid-bottom-"><code>args.grid.bottom</code></a></h2><p>
+</p></div><div id="section----args-grid-bottom-"><h2 id="----args-grid-bottom-"><a href="#----args-grid-bottom-"><code>args.grid.bottom</code></a></h2><p>
 Returns the <code>y</code> value that represents the bottom of the grid.
-</p></div><div><h2 id="----args-grid-top-"><a href="#----args-grid-top-"><code>args.grid.top</code></a></h2><p>
+</p></div><div id="section----args-grid-top-"><h2 id="----args-grid-top-"><a href="#----args-grid-top-"><code>args.grid.top</code></a></h2><p>
 Returns the <code>y</code> value that represents the top of the grid.
-</p></div><div><h2 id="----args-grid-left-"><a href="#----args-grid-left-"><code>args.grid.left</code></a></h2><p>
+</p></div><div id="section----args-grid-left-"><h2 id="----args-grid-left-"><a href="#----args-grid-left-"><code>args.grid.left</code></a></h2><p>
 Returns the <code>x</code> value that represents the left of the grid.
-</p></div><div><h2 id="----args-grid-right-"><a href="#----args-grid-right-"><code>args.grid.right</code></a></h2><p>
+</p></div><div id="section----args-grid-right-"><h2 id="----args-grid-right-"><a href="#----args-grid-right-"><code>args.grid.right</code></a></h2><p>
 Returns the <code>x</code> value that represents the right of the grid.
-</p></div><div><h2 id="----args-grid-rect-"><a href="#----args-grid-rect-"><code>args.grid.rect</code></a></h2><p>
+</p></div><div id="section----args-grid-rect-"><h2 id="----args-grid-rect-"><a href="#----args-grid-rect-"><code>args.grid.rect</code></a></h2><p>
 Returns a rectangle Primitive that represents the grid.
-</p></div><div><h2 id="----args-grid-origin_bottom_left!-"><a href="#----args-grid-origin_bottom_left!-"><code>args.grid.origin_bottom_left!</code></a></h2><p>
+</p></div><div id="section----args-grid-origin_bottom_left!-"><h2 id="----args-grid-origin_bottom_left!-"><a href="#----args-grid-origin_bottom_left!-"><code>args.grid.origin_bottom_left!</code></a></h2><p>
 Change the grids coordinate system to 0, 0 at the bottom left corner.
-</p></div><div><h2 id="----args-grid-origin_center!-"><a href="#----args-grid-origin_center!-"><code>args.grid.origin_center!</code></a></h2><p>
+</p></div><div id="section----args-grid-origin_center!-"><h2 id="----args-grid-origin_center!-"><a href="#----args-grid-origin_center!-"><code>args.grid.origin_center!</code></a></h2><p>
 Change the grids coordinate system to 0, 0 at the center of the screen.
-</p></div><div><h2 id="----args-grid-w-"><a href="#----args-grid-w-"><code>args.grid.w</code></a></h2><p>
+</p></div><div id="section----args-grid-w-"><h2 id="----args-grid-w-"><a href="#----args-grid-w-"><code>args.grid.w</code></a></h2><p>
 Returns the grid's width (always 1280).
-</p></div><div><h2 id="----args-grid-h-"><a href="#----args-grid-h-"><code>args.grid.h</code></a></h2><p>
+</p></div><div id="section----args-grid-h-"><h2 id="----args-grid-h-"><a href="#----args-grid-h-"><code>args.grid.h</code></a></h2><p>
 Returns the grid's height (always 720).
 </p></div></div><div id="section---audio-"><h1 id="---audio-"><a href="#---audio-"><code>Audio</code></a></h1><p>
 Hash that contains audio sources that are playing. If you want to add a new sound add a hash with keys/values as in the following example:
@@ -868,13 +868,13 @@ end
 Sounds that don't specify <code>looping: true</code> will be removed automatically from the hash after the playback ends. Looping sounds or sounds that should stop early must be removed manually.
 </p><p>
 When you assign a hash to an audio output, a <code>:length</code> key will be added to the hash on the following tick. This will tell you the duration of the audio file in seconds (float).
-</p><div><h2 id="---audio-synthesis-(pro-only)"><a href="#---audio-synthesis-(pro-only)">Audio synthesis (Pro only)</a></h2><p>
+</p><div id="section---audio-synthesis-(pro-only)"><h2 id="---audio-synthesis-(pro-only)"><a href="#---audio-synthesis-(pro-only)">Audio synthesis (Pro only)</a></h2><p>
 Instead of a path to an audio file you can specify an array <code>[channels, sample_rate, sound_source]</code> for <code>input</code> to procedurally generate sound. You do this by providing an array of float values between -1.0 and 1.0 that describe the waveform you want to play.
 </p><ul>
 <li><code>channels</code> is the number of channels: 1 = mono, 2 = stereo</li>
 <li><code>sample_rate</code> is the number of values per seconds you will provide to describe the audio wave</li>
 <li><code>sound_source</code> The source of your sound. See below</li>
-</ul><div><h3 id="----sound-source"><a href="#----sound-source">Sound source</a></h3><p>
+</ul><div id="section----sound-source"><h3 id="----sound-source"><a href="#----sound-source">Sound source</a></h3><p>
 A sound source can be one of two things:
 </p><ul>
 <li>A <code>Proc</code> object that is called on demand to generate the next samples to play. Every call should generate
@@ -883,7 +883,7 @@ A sound source can be one of two things:
   <code>looping</code> will work as expected</li>
 </ul><p>
 When you specify 2 for <code>channels</code>, then the generated sample array will be played back in an interleaved manner. The first element is the first sample for the left channel, the second element is the first sample for the right channel, the third element is the second sample for the left channel etc.
-</p></div><div><h3 id="----example-"><a href="#----example-">Example:</a></h3><pre><code class="language-ruby">def tick args
+</p></div><div id="section----example-"><h3 id="----example-"><a href="#----example-">Example:</a></h3><pre><code class="language-ruby">def tick args
   sample_rate = 48000
 
   generate_sine_wave = lambda do
@@ -903,7 +903,7 @@ end
 This function will give you a float value between <code>0</code> and <code>1</code> that represents a percentage. You need to give the funcation a <code>start_tick</code>, <code>current_tick</code>, duration, and easing <code>definitions</code>.
 </p><p>
 This YouTube video is a fantastic introduction to easing functions: <a href="https://www.youtube.com/watch?v=mr5xkf6zSzk">https://www.youtube.com/watch?v=mr5xkf6zSzk</a>
-</p><div><h2 id="---example"><a href="#---example">Example</a></h2><p>
+</p><div id="section---example"><h2 id="---example"><a href="#---example">Example</a></h2><p>
 This example shows how to fade in a label at frame 60 over two seconds (120 ticks). The <code>:identity</code> definition implies a linear fade: <code>f(x) -&gt; x</code>.
 </p><pre><code class="language-ruby">def tick args
   fade_in_at   = 60
@@ -919,17 +919,17 @@ This example shows how to fade in a label at frame 60 over two seconds (120 tick
                            alignment_enum: 1,
                            a: alpha }
 end
-</code></pre></div><div><h2 id="---easing-definitions"><a href="#---easing-definitions">Easing Definitions</a></h2><p>
+</code></pre></div><div id="section---easing-definitions"><h2 id="---easing-definitions"><a href="#---easing-definitions">Easing Definitions</a></h2><p>
 There are a number of easing definitions availble to you:
-</p><div><h3 id="------identity-"><a href="#------identity-"><code>:identity</code></a></h3><p>
+</p><div id="section------identity-"><h3 id="------identity-"><a href="#------identity-"><code>:identity</code></a></h3><p>
 The easing definition for <code>:identity</code> is <code>f(x) = x</code>. For example, if <code>start_tick</code> is <code>0</code>, <code>current_tick</code> is <code>50</code>, and <code>duration</code> is <code>100</code>, then <code>args.easing.ease 0, 50, 100, :identity</code> will return <code>0.5</code> (since tick <code>50</code> is half way between <code>0</code> and <code>100</code>).
-</p></div><div><h3 id="------flip-"><a href="#------flip-"><code>:flip</code></a></h3><p>
+</p></div><div id="section------flip-"><h3 id="------flip-"><a href="#------flip-"><code>:flip</code></a></h3><p>
 The easing definition for <code>:flip</code> is <code>f(x) = 1 - x</code>. For example, if <code>start_tick</code> is <code>0</code>, <code>current_tick</code> is <code>10</code>, and <code>duration</code> is <code>100</code>, then <code>args.easing.ease 0, 10, 100, :flip</code> will return <code>0.9</code> (since tick <code>10</code> means 100% - 10%).
-</p></div><div><h3 id="------quad-----cube-----quart-----qunit-"><a href="#------quad-----cube-----quart-----qunit-"><code>:quad</code>, <code>:cube</code>, <code>:quart</code>, <code>:qunit</code></a></h3><p>
+</p></div><div id="section------quad-----cube-----quart-----qunit-"><h3 id="------quad-----cube-----quart-----qunit-"><a href="#------quad-----cube-----quart-----qunit-"><code>:quad</code>, <code>:cube</code>, <code>:quart</code>, <code>:qunit</code></a></h3><p>
 These are the power easing definitions. <code>:quad</code> is <code>f(x) = x * x</code> (<code>x</code> squared), <code>:cube</code> is <code>f(x) = x * x * x</code>  (<code>x</code> cubed), etc.
 </p><p>
 The power easing definitions represent Smooth Start easing (the percentage changes slow at first and speeds up at the end).
-</p><h4>Example</h4><p>
+</p><div><h4>Example</h4><p>
 Here is an example of Smooth Start (the percentage changes slow at first and speeds up at the end).
 </p><pre><code class="language-ruby">def tick args
   start_tick   = 60
@@ -954,9 +954,9 @@ Here is an example of Smooth Start (the percentage changes slow at first and spe
                            text: "#{percentage.to_sf}",
                            alignment_enum: 1 }
 end
-</code></pre></div><div><h3 id="----combining-easing-definitions"><a href="#----combining-easing-definitions">Combining Easing Definitions</a></h3><p>
+</code></pre></div></div><div id="section----combining-easing-definitions"><h3 id="----combining-easing-definitions"><a href="#----combining-easing-definitions">Combining Easing Definitions</a></h3><p>
 The base easing definitions can be combined to create common easing functions.
-</p><h4>Example</h4><p>
+</p><div><h4>Example</h4><p>
 Here is an example of Smooth Stop (the percentage changes fast at first and slows down at the end).
 </p><pre><code class="language-ruby">def tick args
   start_tick   = 60
@@ -983,9 +983,9 @@ Here is an example of Smooth Stop (the percentage changes fast at first and slow
                            text: "#{percentage.to_sf}",
                            alignment_enum: 1 }
 end
-</code></pre></div><div><h3 id="----custom-easing-functions"><a href="#----custom-easing-functions">Custom Easing Functions</a></h3><p>
+</code></pre></div></div><div id="section----custom-easing-functions"><h3 id="----custom-easing-functions"><a href="#----custom-easing-functions">Custom Easing Functions</a></h3><p>
 You can define your own easing functions by passing in a <code>lambda</code> as a <code>definition</code> or extending the <code>Easing</code> module.
-</p><h4>Example - Using Lambdas</h4><p>
+</p><div><h4>Example - Using Lambdas</h4><p>
 This easing function goes from <code>0</code> to <code>1</code> for the first half of the ease, then <code>1</code> to <code>0</code> for the second half of the ease.
 </p><pre><code class="language-ruby">def tick args
   fade_in_at    = 60
@@ -1013,7 +1013,7 @@ This easing function goes from <code>0</code> to <code>1</code> for the first ha
                            text: "#{percentage.to_sf}",
                            alignment_enum: 1 }
 end
-</code></pre><h4>Example - Extending Easing Definitions</h4><p>
+</code></pre></div><div><h4>Example - Extending Easing Definitions</h4><p>
 If you don't want to create a lambda, you can register an easing definition like so:
 </p><pre><code class="language-ruby"># 1. Extend the Easing module
 module Easing
@@ -1045,7 +1045,7 @@ def tick args
                            alignment_enum: 1 }
 
 end
-</code></pre></div></div></div><div id="section---outputs-"><h1 id="---outputs-"><a href="#---outputs-"><code>Outputs</code></a></h1><p>
+</code></pre></div></div></div></div><div id="section---outputs-"><h1 id="---outputs-"><a href="#---outputs-"><code>Outputs</code></a></h1><p>
 Outputs is how you render primitives to the screen. The minimal setup for rendering something to the screen is via a <code>tick</code> method defined in mygame/app/main.rb
 </p><pre><code class="language-ruby">def tick args
   args.outputs.solids     &lt;&lt; [0, 0, 100, 100]
@@ -1053,7 +1053,7 @@ Outputs is how you render primitives to the screen. The minimal setup for render
   args.outputs.labels     &lt;&lt; [200, 200, "Hello World"]
   args.outputs.lines      &lt;&lt; [300, 300, 400, 400]
 end
-</code></pre><div><h2 id="---render-order"><a href="#---render-order">Render Order</a></h2><p>
+</code></pre><div id="section---render-order"><h2 id="---render-order"><a href="#---render-order">Render Order</a></h2><p>
 Primitives are rendered first-in, first-out. The rendering order (sorted by bottom-most to top-most):
 </p><ul>
 <li><code>solids</code></li>
@@ -1065,13 +1065,13 @@ Primitives are rendered first-in, first-out. The rendering order (sorted by bott
 <li><code>debug</code>: Accepts all render primitives. Use this to render primitives for debugging (production builds of your game will not render this layer).</li>
 </ul></div></div><div id="section---solids-"><h1 id="---solids-"><a href="#---solids-"><code>Solids</code></a></h1><p>
 Add primitives to this collection to render a solid to the screen.
-</p><div><h2 id="---rendering-a-solid-using-an-array"><a href="#---rendering-a-solid-using-an-array">Rendering a solid using an Array</a></h2><p>
+</p><div id="section---rendering-a-solid-using-an-array"><h2 id="---rendering-a-solid-using-an-array"><a href="#---rendering-a-solid-using-an-array">Rendering a solid using an Array</a></h2><p>
 Creates a solid black rectangle located at 100, 100. 160 pixels wide and 90 pixels tall.
 </p><pre><code class="language-ruby">def tick args
   #                         X    Y  WIDTH  HEIGHT
   args.outputs.solids &lt;&lt; [100, 100,   160,     90]
 end
-</code></pre></div><div><h2 id="---rendering-a-solid-using-an-array-with-colors-and-alpha"><a href="#---rendering-a-solid-using-an-array-with-colors-and-alpha">Rendering a solid using an Array with colors and alpha</a></h2><p>
+</code></pre></div><div id="section---rendering-a-solid-using-an-array-with-colors-and-alpha"><h2 id="---rendering-a-solid-using-an-array-with-colors-and-alpha"><a href="#---rendering-a-solid-using-an-array-with-colors-and-alpha">Rendering a solid using an Array with colors and alpha</a></h2><p>
 The value for the color and alpha is a number between <code>0</code> and <code>255</code>. The alpha property is optional and will be set to <code>255</code> if not specified.
 </p><p>
 Creates a green solid rectangle with an opacity of 50%.
@@ -1079,7 +1079,7 @@ Creates a green solid rectangle with an opacity of 50%.
   #                         X    Y  WIDTH  HEIGHT  RED  GREEN  BLUE  ALPHA
   args.outputs.solids &lt;&lt; [100, 100,   160,     90,   0,   255,    0,   128]
 end
-</code></pre></div><div><h2 id="---rendering-a-solid-using-a-hash"><a href="#---rendering-a-solid-using-a-hash">Rendering a solid using a Hash</a></h2><p>
+</code></pre></div><div id="section---rendering-a-solid-using-a-hash"><h2 id="---rendering-a-solid-using-a-hash"><a href="#---rendering-a-solid-using-a-hash">Rendering a solid using a Hash</a></h2><p>
 If you want a more readable invocation. You can use the following hash to create a solid. Any parameters that are not specified will be given a default value. The keys of the hash can be provided in any order.
 </p><pre><code class="language-ruby">def tick args
   args.outputs.solids &lt;&lt; {
@@ -1093,7 +1093,7 @@ If you want a more readable invocation. You can use the following hash to create
     a:  255
   }
 end
-</code></pre></div><div><h2 id="---rendering-a-sprite-using-a-class"><a href="#---rendering-a-sprite-using-a-class">Rendering a sprite using a Class</a></h2><p>
+</code></pre></div><div id="section---rendering-a-sprite-using-a-class"><h2 id="---rendering-a-sprite-using-a-class"><a href="#---rendering-a-sprite-using-a-class">Rendering a sprite using a Class</a></h2><p>
 You can also create a class with solid properties and render it as a primitive. ALL properties must be on the class. *Additionally*, a method called <code>primitive_marker</code> must be defined on the class.
 </p><p>
 Here is an example:
@@ -1139,13 +1139,13 @@ You have to use <code>args.outputs.borders</code>:
 end
 </code></pre></div><div id="section---sprites-"><h1 id="---sprites-"><a href="#---sprites-"><code>Sprites</code></a></h1><p>
 Add primitives to this collection to render a sprite to the screen.
-</p><div><h2 id="---rendering-a-sprite-using-an-array"><a href="#---rendering-a-sprite-using-an-array">Rendering a sprite using an Array</a></h2><p>
+</p><div id="section---rendering-a-sprite-using-an-array"><h2 id="---rendering-a-sprite-using-an-array"><a href="#---rendering-a-sprite-using-an-array">Rendering a sprite using an Array</a></h2><p>
 Creates a sprite of a white circle located at 100, 100. 160 pixels wide and 90 pixels tall.
 </p><pre><code class="language-ruby">def tick args
   #                         X    Y   WIDTH   HEIGHT                      PATH
   args.outputs.sprites &lt;&lt; [100, 100,   160,     90, "sprites/circle/white.png]
 end
-</code></pre></div><div><h2 id="---rendering-a-sprite-using-an-array-with-colors-and-alpha"><a href="#---rendering-a-sprite-using-an-array-with-colors-and-alpha">Rendering a sprite using an Array with colors and alpha</a></h2><p>
+</code></pre></div><div id="section---rendering-a-sprite-using-an-array-with-colors-and-alpha"><h2 id="---rendering-a-sprite-using-an-array-with-colors-and-alpha"><a href="#---rendering-a-sprite-using-an-array-with-colors-and-alpha">Rendering a sprite using an Array with colors and alpha</a></h2><p>
 The value for the color and alpha is a number between <code>0</code> and <code>255</code>. The alpha property is optional and will be set to <code>255</code> if not specified.
 </p><p>
 Creates a green circle sprite with an opacity of 50%.
@@ -1153,7 +1153,7 @@ Creates a green circle sprite with an opacity of 50%.
   #                         X    Y  WIDTH  HEIGHT           PATH                ANGLE  ALPHA  RED  GREEN  BLUE
   args.outputs.sprites &lt;&lt; [100, 100,  160,     90, "sprites/circle/white.png",     0,    128,   0,   255,    0]
 end
-</code></pre></div><div><h2 id="---rendering-a-sprite-using-a-hash"><a href="#---rendering-a-sprite-using-a-hash">Rendering a sprite using a Hash</a></h2><p>
+</code></pre></div><div id="section---rendering-a-sprite-using-a-hash"><h2 id="---rendering-a-sprite-using-a-hash"><a href="#---rendering-a-sprite-using-a-hash">Rendering a sprite using a Hash</a></h2><p>
 If you want a more readable invocation. You can use the following hash to create a sprite. Any parameters that are not specified will be given a default value. The keys of the hash can be provided in any order.
 </p><pre><code class="language-ruby">def tick args
   args.outputs.sprites &lt;&lt; {
@@ -1169,7 +1169,7 @@ If you want a more readable invocation. You can use the following hash to create
     b:                             0
   }
 end
-</code></pre></div><div><h2 id="---rendering-a-solid-using-a-class"><a href="#---rendering-a-solid-using-a-class">Rendering a solid using a Class</a></h2><p>
+</code></pre></div><div id="section---rendering-a-solid-using-a-class"><h2 id="---rendering-a-solid-using-a-class"><a href="#---rendering-a-solid-using-a-class">Rendering a solid using a Class</a></h2><p>
 You can also create a class with solid/border properties and render it as a primitive. ALL properties must be on the class. *Additionally*, a method called <code>primitive_marker</code> must be defined on the class.
 </p><p>
 Here is an example:
@@ -1210,7 +1210,7 @@ def tick args
 end
 </code></pre></div></div><div id="section---labels-"><h1 id="---labels-"><a href="#---labels-"><code>Labels</code></a></h1><p>
 Add primitives to this collection to render a label.
-</p><div><h2 id="---rendering-a-label-using-an-array"><a href="#---rendering-a-label-using-an-array">Rendering a label using an Array</a></h2><p>
+</p><div id="section---rendering-a-label-using-an-array"><h2 id="---rendering-a-label-using-an-array"><a href="#---rendering-a-label-using-an-array">Rendering a label using an Array</a></h2><p>
 Labels represented as Arrays/Tuples:
 </p><pre><code class="language-ruby">def tick args
                          #        X         Y              TEXT   SIZE_ENUM
@@ -1233,7 +1233,7 @@ Here are all the properties that you can set with a label represented as an Arra
   ]
 end
 d
-</code></pre></div><div><h2 id="---rendering-a-label-using-a-hash"><a href="#---rendering-a-label-using-a-hash">Rendering a label using a Hash</a></h2><pre><code class="language-ruby">def tick args
+</code></pre></div><div id="section---rendering-a-label-using-a-hash"><h2 id="---rendering-a-label-using-a-hash"><a href="#---rendering-a-label-using-a-hash">Rendering a label using a Hash</a></h2><pre><code class="language-ruby">def tick args
   args.outputs.labels &lt;&lt; {
       x:                       200,
       y:                       550,
@@ -1257,7 +1257,7 @@ Add a hash to this collection to take a screenshot and save as png file. The key
     r: 255, g: 255, b: 255, a: 0   # Optional chroma key
   }
 end
-</code></pre><div><h2 id="---chroma-key-(making-a-color-transparent)"><a href="#---chroma-key-(making-a-color-transparent)">Chroma key (Making a color transparent)</a></h2><p>
+</code></pre><div id="section---chroma-key-(making-a-color-transparent)"><h2 id="---chroma-key-(making-a-color-transparent)"><a href="#---chroma-key-(making-a-color-transparent)">Chroma key (Making a color transparent)</a></h2><p>
 By specifying the r, g, b and a keys of the hash you change the transparency of a color in the resulting PNG file. This can be useful if you want to create files with transparent background like spritesheets. The transparency of the color specified by <code>r</code>, <code>g</code>, <code>b</code> will be set to the transparency specified by <code>a</code>.
 </p><p>
 The example above sets the color white (255, 255, 255) as transparent.
@@ -1309,7 +1309,7 @@ For example:
     "player x, y is:#{args.state.player.x}, #{args.state.player.y}."
   ]
 end
-</code></pre><div><h2 id="----as_hash-"><a href="#----as_hash-"><code>as_hash</code></a></h2><p>
+</code></pre><div id="section----as_hash-"><h2 id="----as_hash-"><a href="#----as_hash-"><code>as_hash</code></a></h2><p>
 Returns a reference to the <code>GTK::OpenEntity</code> as a <code>Hash</code>. This property is useful when you want to treat <code>args.state</code> as a <code>Hash</code> and invoke methods such as <code>Hash#each</code>.
 </p><p>
 Example:
@@ -1330,7 +1330,7 @@ Example:
 end
 </code></pre></div></div><div id="section---array-"><h1 id="---array-"><a href="#---array-"><code>Array</code></a></h1><p>
 The Array class has been extend to provide methods that will help in common game development tasks. Array is one of the most powerful classes in Ruby and a very fundamental component of Game Toolkit.
-</p><div><h2 id="----map_2d-"><a href="#----map_2d-"><code>map_2d</code></a></h2><p>
+</p><div id="section----map_2d-"><h2 id="----map_2d-"><a href="#----map_2d-"><code>map_2d</code></a></h2><p>
 Assuming the array is an array of arrays, Given a block, each 2D array index invoked against the block. A 2D array is a common way to store data/layout for a stage.
 </p><pre><code class="language-ruby">repl do
   stage = [
@@ -1353,9 +1353,9 @@ Assuming the array is an array of arrays, Given a block, each 2D array index inv
   puts "Occupied Tiles"
   puts occupied_tiles
 end
-</code></pre></div><div><h2 id="----include_any--"><a href="#----include_any--"><code>include_any?</code></a></h2><p>
+</code></pre></div><div id="section----include_any--"><h2 id="----include_any--"><a href="#----include_any--"><code>include_any?</code></a></h2><p>
 Given a collection of items, the function will return <code>true</code> if any of <code>self</code>'s items exists in the collection of items passed in:
-</p></div><div><h2 id="----any_intersect_rect--"><a href="#----any_intersect_rect--"><code>any_intersect_rect?</code></a></h2><p>
+</p></div><div id="section----any_intersect_rect--"><h2 id="----any_intersect_rect--"><a href="#----any_intersect_rect--"><code>any_intersect_rect?</code></a></h2><p>
 Assuming the array contains objects that respond to <code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code>, this method returns <code>true</code> if any of the elements within the array intersect the object being passed in. You are given an optional parameter called <code>tolerance</code> which informs how close to the other rectangles the elements need to be for it to be considered intersecting.
 </p><p>
 The default tolerance is set to <code>0.1</code>, which means that the primitives are not considered intersecting unless they are overlapping by more than <code>0.1</code>.
@@ -1413,7 +1413,7 @@ The default tolerance is set to <code>0.1</code>, which means that the primitive
   # =&gt; true
   puts ""
 end
-</code></pre></div><div><h2 id="----map-"><a href="#----map-"><code>map</code></a></h2><p>
+</code></pre></div><div id="section----map-"><h2 id="----map-"><a href="#----map-"><code>map</code></a></h2><p>
 The function given a block returns a new <code>Enumerable</code> of values.
 </p><p>
 Example of using <code>Array#map</code> in conjunction with <code>args.state</code> and <code>args.outputs.sprites</code> to render sprites to the screen.
@@ -1447,7 +1447,7 @@ Example of using <code>Array#map</code> in conjunction with <code>args.state</co
                         ]
                       end
 end
-</code></pre></div><div><h2 id="----each-"><a href="#----each-"><code>each</code></a></h2><p>
+</code></pre></div><div id="section----each-"><h2 id="----each-"><a href="#----each-"><code>each</code></a></h2><p>
 The function, given a block, invokes the block for each item in the <code>Array</code>. <code>Array#each</code> is synonymous to foreach constructs in other languages.
 </p><p>
 Example of using <code>Array#each</code> in conjunction with <code>args.state</code> and <code>args.outputs.sprites</code> to render sprites to the screen:
@@ -1480,7 +1480,7 @@ Example of using <code>Array#each</code> in conjunction with <code>args.state</c
         ]
       end
 end
-</code></pre></div><div><h2 id="----reject_nil-"><a href="#----reject_nil-"><code>reject_nil</code></a></h2><p>
+</code></pre></div><div id="section----reject_nil-"><h2 id="----reject_nil-"><a href="#----reject_nil-"><code>reject_nil</code></a></h2><p>
 Returns an <code>Enumerable</code> rejecting items that are <code>nil</code>, this is an alias for <code>Array#compact</code>:
 </p><pre><code class="language-ruby">repl do
   a = [1, nil, 4, false, :a]
@@ -1489,14 +1489,14 @@ Returns an <code>Enumerable</code> rejecting items that are <code>nil</code>, th
   puts a.compact
   # =&gt; [1, 4, false, :a]
 end
-</code></pre></div><div><h2 id="----reject_false-"><a href="#----reject_false-"><code>reject_false</code></a></h2><p>
+</code></pre></div><div id="section----reject_false-"><h2 id="----reject_false-"><a href="#----reject_false-"><code>reject_false</code></a></h2><p>
 Returns an `Enumerable` rejecting items that are `nil` or `false`.
 </p><pre><code class="language-ruby">repl do
   a = [1, nil, 4, false, :a]
   puts a.reject_false
   # =&gt; [1, 4, :a]
 end
-</code></pre></div><div><h2 id="----product-"><a href="#----product-"><code>product</code></a></h2><p>
+</code></pre></div><div id="section----product-"><h2 id="----product-"><a href="#----product-"><code>product</code></a></h2><p>
 Returns all combinations of values between two arrays.
 </p><p>
 Here are some examples of using <code>product</code>. Paste the following code at the bottom of main.rb and save the file to see the results:
@@ -1511,7 +1511,7 @@ end
   puts a.product b
   # =&gt; [[0, :a], [0, :b], [1, :a], [1, :b]]
 end
-</code></pre></div><div><h2 id="----frame_index-"><a href="#----frame_index-"><code>frame_index</code></a></h2><p>
+</code></pre></div><div id="section----frame_index-"><h2 id="----frame_index-"><a href="#----frame_index-"><code>frame_index</code></a></h2><p>
 This function is helpful for determining the index of frame-by-frame   sprite animation. The numeric value <code>self</code> represents the moment the   animation started.
 </p><p>
 <code>frame_index</code> takes three additional parameters:
@@ -1565,7 +1565,7 @@ Example using named parameters:
     "sprites/dragon-#{sprite_index}.png"
   ]
 end
-</code></pre></div><div><h2 id="----elapsed_time-"><a href="#----elapsed_time-"><code>elapsed_time</code></a></h2><p>
+</code></pre></div><div id="section----elapsed_time-"><h2 id="----elapsed_time-"><a href="#----elapsed_time-"><code>elapsed_time</code></a></h2><p>
 For a given number, the elapsed frames since that number is returned. `Kernel.tick_count` is used to determine how many frames have elapsed. An optional numeric argument can be passed in which will be used instead of `Kernel.tick_count`.
 </p><p>
 Here is an example of how elapsed_time can be used.
@@ -1600,7 +1600,7 @@ And here is an example where the override parameter is passed in:
     args.outputs.labels &lt;&lt; [10, 710, "It has been over 4 seconds since the mouse was clicked."]
   end
 end
-</code></pre></div><div><h2 id="----elapsed--"><a href="#----elapsed--"><code>elapsed?</code></a></h2><p>
+</code></pre></div><div id="section----elapsed--"><h2 id="----elapsed--"><a href="#----elapsed--"><code>elapsed?</code></a></h2><p>
 Returns true if <code>Numeric#elapsed_time</code> is greater than the number. An optional parameter can be passed into <code>elapsed?</code> which is added to the number before evaluating whether <code>elapsed?</code> is true.
 </p><p>
 Example usage (no optional parameter):
@@ -1658,7 +1658,7 @@ Example usage (with optional parameter):
 
   args.state.box_queue -= boxes_to_destroy
 end
-</code></pre></div><div><h2 id="----new--"><a href="#----new--"><code>new?</code></a></h2><p>
+</code></pre></div><div id="section----new--"><h2 id="----new--"><a href="#----new--"><code>new?</code></a></h2><p>
 Returns true if <code>Numeric#elapsed_time == 0</code>. Essentially communicating that number is equal to the current frame.
 </p><p>
 Example usage:
@@ -1680,9 +1680,9 @@ Example usage:
 end
 </code></pre></div></div><div id="section---kernel-"><h1 id="---kernel-"><a href="#---kernel-"><code>Kernel</code></a></h1><p>
 Kernel in the DragonRuby Runtime has patches for how standard out is handled and also contains a unit of time in games called a tick.
-</p><div><h2 id="----tick_count-"><a href="#----tick_count-"><code>tick_count</code></a></h2><p>
+</p><div id="section----tick_count-"><h2 id="----tick_count-"><a href="#----tick_count-"><code>tick_count</code></a></h2><p>
 Returns the current tick of the game. This value is reset if you call $gtk.reset.
-</p></div><div><h2 id="----global_tick_count-"><a href="#----global_tick_count-"><code>global_tick_count</code></a></h2><p>
+</p></div><div id="section----global_tick_count-"><h2 id="----global_tick_count-"><a href="#----global_tick_count-"><code>global_tick_count</code></a></h2><p>
 Returns the current tick of the application from the point it was started. This value is never reset.
 </p></div></div><div id="section---geometry-"><h1 id="---geometry-"><a href="#---geometry-"><code>Geometry</code></a></h1><p>
 The Geometry <code>module</code> contains methods for calculations that are frequently used in game development. For convenience, this <code>module</code> is mixed into <code>Hash</code>, <code>Array</code>, and DragonRuby's <code>Entity</code> class. It is also available in a functional variant at <code>args.geometry</code>.
@@ -1707,7 +1707,7 @@ Many of the geometric functions assume the objects have a certain shape:
   # use the geometry methods functionally
   puts args.geometry.intersect_rect?(rect_1, rect_2)
 end
-</code></pre><div><h2 id="----inside_rect--"><a href="#----inside_rect--"><code>inside_rect?</code></a></h2><p>
+</code></pre><div id="section----inside_rect--"><h2 id="----inside_rect--"><a href="#----inside_rect--"><code>inside_rect?</code></a></h2><p>
 Invocation variants:
 </p><ul>
 <li><code>instance.inside_rect?(other)</code></li>
@@ -1771,7 +1771,7 @@ Here is an example where one rectangle is stationary, and another rectangle is c
   args.outputs.borders &lt;&lt; args.state.box_1
   args.outputs.borders &lt;&lt; args.state.box_2
 end
-</code></pre></div><div><h2 id="----scale_rect-"><a href="#----scale_rect-"><code>scale_rect</code></a></h2><p>
+</code></pre></div><div id="section----scale_rect-"><h2 id="----scale_rect-"><a href="#----scale_rect-"><code>scale_rect</code></a></h2><p>
 Given a <code>Rectangle</code> this function returns a new rectangle with a scaled size.
 </p><ul>
 <li><code>ratio</code>: the ratio by which to scale the rect. A ratio of 2 will double the dimensions of the rect while a ratio of 0.5 will halve its dimensions.</li>
@@ -1789,7 +1789,7 @@ Given a <code>Rectangle</code> this function returns a new rectangle with a scal
   # the rect double the size, repositioned in the center given anchor optional arguments
   args.outputs.borders &lt;&lt; args.state.rect_1.scale_rect(2, 0.5, 0.5)
 end
-</code></pre></div><div><h2 id="----scale_rect_extended-"><a href="#----scale_rect_extended-"><code>scale_rect_extended</code></a></h2><p>
+</code></pre></div><div id="section----scale_rect_extended-"><h2 id="----scale_rect_extended-"><a href="#----scale_rect_extended-"><code>scale_rect_extended</code></a></h2><p>
 The behavior is similar to <code>scale_rect</code> except that you can independently control the scale of each axis. The parameters are all named:
 </p><ul>
 <li><code>percentage_x</code>: percentage to change the width (default value of 1.0)</li>
@@ -1806,7 +1806,7 @@ The behavior is similar to <code>scale_rect</code> except that you can independe
   args.outputs.borders &lt;&lt; args.state.rect_1
   args.outputs.borders &lt;&lt; args.state.rect_2
 end
-</code></pre></div><div><h2 id="----anchor_rect-"><a href="#----anchor_rect-"><code>anchor_rect</code></a></h2><p>
+</code></pre></div><div id="section----anchor_rect-"><h2 id="----anchor_rect-"><a href="#----anchor_rect-"><code>anchor_rect</code></a></h2><p>
 Returns a new rect that is anchored by an <code>anchor_x</code> and <code>anchor_y</code> value. The width and height of the rectangle is taken into consideration when determining the anchor position:
 </p><pre><code class="language-ruby">def tick args
   args.state.rect ||= {
@@ -1825,7 +1825,7 @@ Returns a new rect that is anchored by an <code>anchor_x</code> and <code>anchor
   # rect's center: 640, 360
   args.outputs.borders &lt;&lt; args.state.rect.anchor_rect(0.5, 0)
 end
-</code></pre></div><div><h2 id="----angle_from-"><a href="#----angle_from-"><code>angle_from</code></a></h2><p>
+</code></pre></div><div id="section----angle_from-"><h2 id="----angle_from-"><a href="#----angle_from-"><code>angle_from</code></a></h2><p>
 Invocation variants:
 </p><ul>
 <li><code>args.geometry.angle_from start_point, end_point</code></li>
@@ -1851,7 +1851,7 @@ Returns an angle in degrees from the <code>end_point</code> to the <code>start_p
   angle_radians = angle.to_radians
   args.outputs.labels &lt;&lt; { x: 30, y: 60.from_top, text: "#{angle}, #{angle_radians}" }
 end
-</code></pre></div><div><h2 id="----angle_to-"><a href="#----angle_to-"><code>angle_to</code></a></h2><p>
+</code></pre></div><div id="section----angle_to-"><h2 id="----angle_to-"><a href="#----angle_to-"><code>angle_to</code></a></h2><p>
 Invocation variants:
 </p><ul>
 <li><code>args.geometry.angle_to start_point, end_point</code></li>
@@ -1877,7 +1877,7 @@ Returns an angle in degrees to the <code>end_point</code> from the <code>start_p
   angle_radians = angle.to_radians
   args.outputs.labels &lt;&lt; { x: 30, y: 60.from_top, text: "#{angle}, #{angle_radians}" }
 end
-</code></pre></div><div><h2 id="----distance-"><a href="#----distance-"><code>distance</code></a></h2><p>
+</code></pre></div><div id="section----distance-"><h2 id="----distance-"><a href="#----distance-"><code>distance</code></a></h2><p>
 Returns the distance between two points;
 </p><pre><code class="language-ruby">def tick args
   rect_1 ||= {
@@ -1904,7 +1904,7 @@ Returns the distance between two points;
     y2: rect_2.y
   }
 end
-</code></pre></div><div><h2 id="----point_inside_circle--"><a href="#----point_inside_circle--"><code>point_inside_circle?</code></a></h2><p>
+</code></pre></div><div id="section----point_inside_circle--"><h2 id="----point_inside_circle--"><a href="#----point_inside_circle--"><code>point_inside_circle?</code></a></h2><p>
 Invocation variants:
 </p><ul>
 <li><code>point_1.point_inside_circle? circle_center, circle_radius</code></li>
@@ -1967,7 +1967,7 @@ Returns <code>true</code> if a point is inside of a circle defined as a center p
     }
   end
 end
-</code></pre></div><div><h2 id="----center_inside_rect-"><a href="#----center_inside_rect-"><code>center_inside_rect</code></a></h2><p>
+</code></pre></div><div id="section----center_inside_rect-"><h2 id="----center_inside_rect-"><a href="#----center_inside_rect-"><code>center_inside_rect</code></a></h2><p>
 Invocation variants:
 </p><ul>
 <li><code>target_rect.center_inside_rect reference_rect</code></li>
@@ -1997,7 +1997,7 @@ Given a target rect and a reference rect, the target rect is centered inside the
   args.outputs.solids &lt;&lt; rect_2.merge(b: 255)
   args.outputs.solids &lt;&lt; centered_rect.merge(g: 255)
 end
-</code></pre></div><div><h2 id="----ray_test-"><a href="#----ray_test-"><code>ray_test</code></a></h2><p>
+</code></pre></div><div id="section----ray_test-"><h2 id="----ray_test-"><a href="#----ray_test-"><code>ray_test</code></a></h2><p>
 Given a point and a line, <code>ray_test</code> returns one of the following symbols based on the location of the point relative to the line: <code>:left</code>, <code>:right</code>, <code>:on</code>
 </p><pre><code class="language-ruby">def tick args
   # create a point based off of the mouse location
@@ -2037,7 +2037,7 @@ Given a point and a line, <code>ray_test</code> returns one of the following sym
     h: 10
   }
 end
-</code></pre></div><div><h2 id="----line_rise_run-"><a href="#----line_rise_run-"><code>line_rise_run</code></a></h2><p>
+</code></pre></div><div id="section----line_rise_run-"><h2 id="----line_rise_run-"><a href="#----line_rise_run-"><code>line_rise_run</code></a></h2><p>
 Given a line, this function returns a Hash with <code>x</code> and <code>y</code> keys representing a normalized representation of the rise and run of the line.
 </p><pre><code class="language-ruby">def tick args
   # draw a line from the bottom left to the top right
@@ -2063,7 +2063,7 @@ Given a line, this function returns a Hash with <code>x</code> and <code>y</code
   # render the line
   args.outputs.lines &lt;&lt; line
 end
-</code></pre></div><div><h2 id="----rotate_point-"><a href="#----rotate_point-"><code>rotate_point</code></a></h2><p>
+</code></pre></div><div id="section----rotate_point-"><h2 id="----rotate_point-"><a href="#----rotate_point-"><code>rotate_point</code></a></h2><p>
 Given a point and an angle in degrees, a new point is returned that is rotated around the origin by the degrees amount. An optional third argument can be provided to rotate the angle around a point other than the origin.
 </p><pre><code class="language-ruby">def tick args
   args.state.rotate_amount ||= 0
@@ -2106,19 +2106,19 @@ Given a point and an angle in degrees, a new point is returned that is rotated a
     h: 10
   }
 end
-</code></pre></div><div><h2 id="----find_intersect_rect-"><a href="#----find_intersect_rect-"><code>find_intersect_rect</code></a></h2><p>
+</code></pre></div><div id="section----find_intersect_rect-"><h2 id="----find_intersect_rect-"><a href="#----find_intersect_rect-"><code>find_intersect_rect</code></a></h2><p>
 Given a rect and a collection of rects, <code>find_intersect_rect</code> returns the first rect that intersects with the the first parameter. If you find yourself doing this:
 </p><pre><code class="language-ruby">collision = args.state.terrain.find { |t| t.intersect_rect? args.state.player }
 </code></pre><p>
 Consider using <code>find_intersect_rect</code> instead (it's more descriptive and faster):
 </p><pre><code class="language-ruby">collision = args.geometry.find_intersect_rect args.state.player, args.state.terrain
-</code></pre></div><div><h2 id="----find_all_intersect_rect-"><a href="#----find_all_intersect_rect-"><code>find_all_intersect_rect</code></a></h2><p>
+</code></pre></div><div id="section----find_all_intersect_rect-"><h2 id="----find_all_intersect_rect-"><a href="#----find_all_intersect_rect-"><code>find_all_intersect_rect</code></a></h2><p>
 Given a rect and a collection of rects, <code>find_all_intersect_rect</code> returns all rects that intersects with the the first parameter. If you find yourself doing this:
 </p><pre><code class="language-ruby">collisions = args.state.terrain.find_all { |t| t.intersect_rect? args.state.player }
 </code></pre><p>
 Consider using <code>find_all_intersect_rect</code> instead (it's more descriptive and faster):
 </p><pre><code class="language-ruby">collisions = args.geometry.find_all_intersect_rect args.state.player, args.state.terrain
-</code></pre></div><div><h2 id="----find_intersect_rect_quad_tree-"><a href="#----find_intersect_rect_quad_tree-"><code>find_intersect_rect_quad_tree</code></a></h2><p>
+</code></pre></div><div id="section----find_intersect_rect_quad_tree-"><h2 id="----find_intersect_rect_quad_tree-"><a href="#----find_intersect_rect_quad_tree-"><code>find_intersect_rect_quad_tree</code></a></h2><p>
 This is a faster collision algorithm for determining if a rectangle intersects any rectangle in an array. In order to use <code>find_intersect_rect_quad_tree</code>, you must first generate a quad tree data structure using <code>create_quad_tree</code>. Use this function if <code>find_intersect_rect</code> isn't fast enough.
 </p><pre><code class="language-ruby">def tick args
   # create a player
@@ -2164,6 +2164,6 @@ This is a faster collision algorithm for determining if a rectangle intersects a
   # render boxes as borders
   args.outputs.borders &lt;&lt; args.state.boxes
 end
-</code></pre></div><div><h2 id="----create_quad_tree-"><a href="#----create_quad_tree-"><code>create_quad_tree</code></a></h2><p>
+</code></pre></div><div id="section----create_quad_tree-"><h2 id="----create_quad_tree-"><a href="#----create_quad_tree-"><code>create_quad_tree</code></a></h2><p>
 Generates a quad tree from an array of rectangles. See <code>find_intersect_rect_quad_tree</code> for usage.
 </p></div></div></body></html>

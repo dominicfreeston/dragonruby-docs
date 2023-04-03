@@ -9,6 +9,7 @@
                      (str/replace "<=" "&lt="))) ;; hackaround for dodgy html
 (defonce html-res (e/html-resource (io/input-stream (.getBytes html-string))))
 
+(def headers [:h1 :h2 :h3 :h4 :h5 :h6])
 
 (defn bring-back-language-ruby
   "The DR docs now only group code snippets in a <pre> tag,
@@ -27,24 +28,26 @@
   [nodes]
   (e/transform
    nodes
-   #{[:h1] [:h2] [:h3]}
+   (set (map vector headers))
    (fn [h]
-     (assoc h :content
-            [{:tag :a
-              :attrs {:href (str "#" (get-in h [:attrs :id]))}
-              :content (:content h)}]))))
+     (if-let [id (get-in h [:attrs :id])]
+       (assoc h :content
+              [{:tag :a
+                :attrs {:href (str "#" id)}
+                :content (:content h)}])
+       h))))
 
 (defn promote-h-tags
+  "Promote all headers to the header type above (h1 stays h1)"
   [nodes]
-  (e/transform
-   nodes
-   #{[:h1] [:h2] [:h3] [:h4]}
-   (fn [h]
-     (assoc h :tag (case (:tag h)
-                     :h1 :h1
-                     :h2 :h1
-                     :h3 :h2
-                     :h4 :h3)))))
+  (let [mapping (into {:h1 :h1}
+                      (map (fn [[v k]] [k v])
+                           (partition 2 1 headers)))]
+    (e/transform
+     nodes
+     (set (map vector headers))
+     (fn [h]
+       (assoc h :tag (mapping (:tag h)))))))
 
 (defn partition-by-tag
   "Given a flat list of html tags, we want to group them based on some meaningful
@@ -57,31 +60,20 @@
           [[]]
           content))
 
-
-(defn group-h1-content-in-div
+(defn group-content-in-div
   "Apart from a TOC anda content div, most of the DR docs page
   is super flat, which makes it hard to extract a particular section.
-  This uses <h1> tags as separators and groups all the content below inside a <div>"
-  [content]
-  (mapv
-    (fn [content]
-      {:tag :div
-       :attrs {:id (str "section" (get-in (first content) [:attrs :id]))}
-       :content (let [h2-content (partition-by-tag :h2 content)]
-                  (concat
-                   (first h2-content)
-                   (mapv (fn [content]
-                           {:tag :div
-                            :content (let [h3-content (partition-by-tag :h3 content)]
-                                       (concat
-                                        (first h3-content)
-                                        (mapv (fn [content]
-                                                {:tag :div
-                                                 :content content})
-                                              (rest h3-content))))})
-                         (rest h2-content))))})
-    (partition-by-tag :h1 content))
-  )
+  This uses specified tags as separators and recursively groups all the content below inside a <div>"
+  [partitions content]
+  (let [partitioned-content (partition-by-tag (first partitions) content)]
+    (concat
+     (first partitioned-content)
+     (mapv (fn [content]
+             {:tag :div
+              :attrs (when-let [id (get-in (first content) [:attrs :id])]
+                       {:id (str "section" id)})
+              :content (group-content-in-div (rest partitions) content)})
+           (rest partitioned-content)))))
 
 (defn output-section-page!
   [page body]
@@ -114,11 +106,7 @@
        first
        :content
        (remove string?)
-       group-h1-content-in-div))
-
-(comment
-  
-         )
+       (group-content-in-div headers)))
 
 (def api-docs-sections
   ["#section---runtime-"
@@ -168,8 +156,7 @@
 (output-section-page!
  "api/index"
  (e/select grouped-sections (into #{} (map (comp vector keyword)
-                                                            api-docs-sections))))
-
+                                           api-docs-sections))))
 (output-section-page!
  "recipies/index"
  (e/select grouped-sections [:#section--recipies-]))

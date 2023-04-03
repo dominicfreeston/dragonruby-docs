@@ -1,14 +1,14 @@
-<!DOCTYPE html><html><head><link rel="stylesheet" href="/css/preflight.css" /><link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/nord.min.css" /><script src="/js/highlight.min.js"></script><script>hljs.highlightAll();</script></head><body><div id="section--recipies-"><h1 id="--recipies-"><a href="#--recipies-">RECIPIES:</a></h1><div><h2 id="---how-to-determine-what-frame-you-are-on"><a href="#---how-to-determine-what-frame-you-are-on">How To Determine What Frame You Are On</a></h2><p>
+<!DOCTYPE html><html><head><link rel="stylesheet" href="/css/preflight.css" /><link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/nord.min.css" /><script src="/js/highlight.min.js"></script></head><body><div id="section--recipies-"><h1 id="--recipies-"><a href="#--recipies-">RECIPIES:</a></h1><div id="section---how-to-determine-what-frame-you-are-on"><h2 id="---how-to-determine-what-frame-you-are-on"><a href="#---how-to-determine-what-frame-you-are-on">How To Determine What Frame You Are On</a></h2><p>
 There is a property on <code>state</code> called <code>tick_count</code> that is incremented by DragonRuby every time the <code>tick</code> method is called. The following code renders a label that displays the current <code>tick_count</code>.
 </p><pre><code class="language-ruby">def tick args
   args.outputs.labels &lt;&lt; [10, 670, "#{args.state.tick_count}"]
 end
-</code></pre></div><div><h2 id="---how-to-get-current-framerate"><a href="#---how-to-get-current-framerate">How To Get Current Framerate</a></h2><p>
+</code></pre></div><div id="section---how-to-get-current-framerate"><h2 id="---how-to-get-current-framerate"><a href="#---how-to-get-current-framerate">How To Get Current Framerate</a></h2><p>
 Current framerate is a top level property on the Game Toolkit Runtime and is accessible via <code>args.gtk.current_framerate</code>.
 </p><pre><code class="language-ruby">def tick args
   args.outputs.labels &lt;&lt; [10, 710, "framerate: #{args.gtk.current_framerate.round}"]
 end
-</code></pre></div><div><h2 id="---how-to-render-a-sprite-using-an-array"><a href="#---how-to-render-a-sprite-using-an-array">How To Render A Sprite Using An Array</a></h2><p>
+</code></pre></div><div id="section---how-to-render-a-sprite-using-an-array"><h2 id="---how-to-render-a-sprite-using-an-array"><a href="#---how-to-render-a-sprite-using-an-array">How To Render A Sprite Using An Array</a></h2><p>
 All file paths should use the forward slash <code>/</code> *not* backslash <code></code>. Game Toolkit includes a number of sprites in the <code>sprites</code> folder (everything about your game is located in the <code>mygame</code> directory).
 </p><p>
 The following code renders a sprite with a <code>width</code> and <code>height</code> of <code>100</code> in the center of the screen.
@@ -23,7 +23,7 @@ The following code renders a sprite with a <code>width</code> and <code>height</
     'sprites/square-blue.png' # PATH
  ]
 end
-</code></pre></div><div><h2 id="---more-sprite-properties-as-an-array"><a href="#---more-sprite-properties-as-an-array">More Sprite Properties As An Array</a></h2><p>
+</code></pre></div><div id="section---more-sprite-properties-as-an-array"><h2 id="---more-sprite-properties-as-an-array"><a href="#---more-sprite-properties-as-an-array">More Sprite Properties As An Array</a></h2><p>
 Here are all the properties you can set on a sprite.
 </p><pre><code class="language-ruby">def tick args
   args.outputs.sprites &lt;&lt; [
@@ -39,7 +39,7 @@ Here are all the properties you can set on a sprite.
     0                          # BLUE_SATURATION
   ]
 end
-</code></pre></div><div><h2 id="---different-sprite-representations"><a href="#---different-sprite-representations">Different Sprite Representations</a></h2><p>
+</code></pre></div><div id="section---different-sprite-representations"><h2 id="---different-sprite-representations"><a href="#---different-sprite-representations">Different Sprite Representations</a></h2><p>
 Using ordinal positioning can get a little unruly given so many properties you have control over.
 </p><p>
 You can represent a sprite as a <code>Hash</code>:
@@ -112,7 +112,7 @@ def tick args
                                           w: 50,
                                           h: 50)
 end
-</code></pre></div><div><h2 id="---how-to-render-a-label"><a href="#---how-to-render-a-label">How To Render A Label</a></h2><p>
+</code></pre></div><div id="section---how-to-render-a-label"><h2 id="---how-to-render-a-label"><a href="#---how-to-render-a-label">How To Render A Label</a></h2><p>
 <code>args.outputs.labels</code> is used to render labels.
 </p><p>
 Labels are how you display text. This code will go directly inside of the <code>def tick args</code> method.
@@ -122,12 +122,12 @@ Here is the minimum code:
   #                       X    Y    TEXT
   args.outputs.labels &lt;&lt; [640, 360, "I am a black label."]
 end
-</code></pre></div><div><h2 id="---a-colored-label"><a href="#---a-colored-label">A Colored Label</a></h2><pre><code class="language-ruby">def tick args
+</code></pre></div><div id="section---a-colored-label"><h2 id="---a-colored-label"><a href="#---a-colored-label">A Colored Label</a></h2><pre><code class="language-ruby">def tick args
   # A colored label
   #                       X    Y    TEXT,                   RED    GREEN  BLUE  ALPHA
   args.outputs.labels &lt;&lt; [640, 360, "I am a redish label.", 255,     128,  128,   255]
 end
-</code></pre></div><div><h2 id="---extended-label-properties"><a href="#---extended-label-properties">Extended Label Properties</a></h2><pre><code class="language-ruby">def tick args
+</code></pre></div><div id="section---extended-label-properties"><h2 id="---extended-label-properties"><a href="#---extended-label-properties">Extended Label Properties</a></h2><pre><code class="language-ruby">def tick args
   # A colored label
   #                       X    Y     TEXT           SIZE  ALIGNMENT  RED  GREEN  BLUE  ALPHA  FONT FILE
   args.outputs.labels &lt;&lt; [
@@ -147,7 +147,7 @@ end
 A <code>SIZE_ENUM</code> of <code>0</code> represents "default size". A <code>negative</code> value will decrease the label size. A <code>positive</code> value will increase the label's size.
 </p><p>
 An <code>ALIGNMENT_ENUM</code> of <code>0</code> represents "left aligned". <code>1</code> represents "center aligned". <code>2</code> represents "right aligned".
-</p></div><div><h2 id="---rendering-a-label-as-a--hash-"><a href="#---rendering-a-label-as-a--hash-">Rendering A Label As A <code>Hash</code></a></h2><p>
+</p></div><div id="section---rendering-a-label-as-a--hash-"><h2 id="---rendering-a-label-as-a--hash-"><a href="#---rendering-a-label-as-a--hash-">Rendering A Label As A <code>Hash</code></a></h2><p>
 You can add additional metadata about your game within a label, which requires you to use a `Hash` instead.
 </p><pre><code class="language-ruby">def tick args
   args.outputs.labels &lt;&lt; {
@@ -171,7 +171,7 @@ You can add additional metadata about your game within a label, which requires y
     }
   }
 end
-</code></pre></div><div><h2 id="---getting-the-size-of-a-piece-of-text"><a href="#---getting-the-size-of-a-piece-of-text">Getting The Size Of A Piece Of Text</a></h2><p>
+</code></pre></div><div id="section---getting-the-size-of-a-piece-of-text"><h2 id="---getting-the-size-of-a-piece-of-text"><a href="#---getting-the-size-of-a-piece-of-text">Getting The Size Of A Piece Of Text</a></h2><p>
 You can get the render size of any string using <code>args.gtk.calcstringbox</code>.
 </p><pre><code class="language-ruby">def tick args
   #                             TEXT           SIZE_ENUM  FONT
@@ -187,7 +187,7 @@ You can get the render size of any string using <code>args.gtk.calcstringbox</co
     "'some string' has width: #{w}, and height: #{h}."
   ]
 end
-</code></pre></div><div><h2 id="---rendering-labels-with-new-line-characters-and-wrapping"><a href="#---rendering-labels-with-new-line-characters-and-wrapping">Rendering Labels With New Line Characters And Wrapping</a></h2><p>
+</code></pre></div><div id="section---rendering-labels-with-new-line-characters-and-wrapping"><h2 id="---rendering-labels-with-new-line-characters-and-wrapping"><a href="#---rendering-labels-with-new-line-characters-and-wrapping">Rendering Labels With New Line Characters And Wrapping</a></h2><p>
 You can use a strategy like the following to create multiple labels from a String.
 </p><pre><code class="language-ruby">def tick args
   long_string = "Lorem ipsum dolor sit amet, consectetur adipiscing elitteger dolor velit, ultricies vitae libero vel, aliquam imperdiet enim."
@@ -197,7 +197,7 @@ You can use a strategy like the following to create multiple labels from a Strin
     { x: 10, y: 600 - (i * 20), text: s }
   end
 end
-</code></pre></div><div><h2 id="---how-to-play-a-sound"><a href="#---how-to-play-a-sound">How To Play A Sound</a></h2><p>
+</code></pre></div><div id="section---how-to-play-a-sound"><h2 id="---how-to-play-a-sound"><a href="#---how-to-play-a-sound">How To Play A Sound</a></h2><p>
 Sounds that end <code>.wav</code> will play once:
 </p><pre><code class="language-ruby">def tick args
   # Play a sound every second
@@ -221,7 +221,7 @@ If you want to play a <code>.ogg</code> once as if it were a sound effect, you c
     args.gtk.queue_sound 'some-ogg.ogg'
   end
 end
-</code></pre></div><div><h2 id="---using--args-state--to-store-your-game-state"><a href="#---using--args-state--to-store-your-game-state">Using <code>args.state</code> To Store Your Game State</a></h2><p>
+</code></pre></div><div id="section---using--args-state--to-store-your-game-state"><h2 id="---using--args-state--to-store-your-game-state"><a href="#---using--args-state--to-store-your-game-state">Using <code>args.state</code> To Store Your Game State</a></h2><p>
 <code>args.state</code> is a open data structure that allows you to define properties that are arbitrarily nested. You don't need to define any kind of <code>class</code>.
 </p><p>
 To initialize your game state, use the <code>||=</code> operator. Any value on the right side of <code>||=</code> will only be assigned _once_.
@@ -250,7 +250,7 @@ To assign a value every frame, just use the <code>=</code> operator, but _make s
     args.state.player.hp
   ]
 end
-</code></pre></div><div><h2 id="---accessing-files"><a href="#---accessing-files">Accessing files</a></h2><p>
+</code></pre></div><div id="section---accessing-files"><h2 id="---accessing-files"><a href="#---accessing-files">Accessing files</a></h2><p>
 DragonRuby uses a sandboxed filesystem which will automatically read from and write to a location appropriate for your platform so you don't have to worry about theses details in your code. You can just use <code>gtk.read_file</code>, <code>gtk.write_file</code>, and <code>gtk.append_file</code> with a relative path and the engine will take care of the rest.
 </p><p>
 The data directories that will be written to in a production build are:
@@ -267,7 +267,7 @@ When reading files, the engine will first look in the game's data directory and 
 When running a development build you will directly write to your game directory (and thus overwrite existing files). This can be useful for built-in development tools like level editors.
 </p><p>
 For more details on the implementation of the sandboxed filesystem, see Ryan C. Gordon's PhysicsFS documentation: <a href="https://icculus.org/physfs/">https://icculus.org/physfs/</a>
-</p></div><div><h2 id="---troubleshoot-performance"><a href="#---troubleshoot-performance">Troubleshoot Performance</a></h2><ol>
+</p></div><div id="section---troubleshoot-performance"><h2 id="---troubleshoot-performance"><a href="#---troubleshoot-performance">Troubleshoot Performance</a></h2><ol>
 <li> If you're using <code>Array</code>s for your primitives (<code>args.outputs.sprites &lt;&lt; []</code>), use <code>Hash</code> instead (<code>args.outputs.sprites &lt;&lt; { x: ... }</code>).</li>
 <li> If you're using <code>Entity</code> for your primitives (<code>args.outputs.sprites &lt;&lt; args.state.new_entity</code>), use <code>StrictEntity</code> instead (<code>args.outputs.sprites &lt;&lt; args.state.new_entity_strict</code>).</li>
 <li> Use <code>.each</code> instead of <code>.map</code> if you don't care about the return value.</li>

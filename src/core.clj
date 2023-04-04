@@ -71,33 +71,38 @@
      (mapv (fn [content]
              {:tag :div
               :attrs (when-let [id (get-in (first content) [:attrs :id])]
-                       {:id (str "section" id)})
+                       {:id (str "section" id)
+                        :class (str (name (first partitions)) "-container")})
               :content (group-content-in-div (rest partitions) content)})
            (rest partitioned-content)))))
 
 (defn output-section-page!
-  [page body]
-  (let [path (str "site/" page ".html")]
-    (io/make-parents path)
-    (spit path
-          (str
-           "<!DOCTYPE html>"
-           (str/join
-            (e/emit*
-             (e/html
-              [:html
-               [:head
-                [:link {:rel "stylesheet"
-                        :href "/css/preflight.css"}]
-                [:link {:rel "stylesheet"
-                        :href "/css/style.css"}]
-                [:link {:rel "stylesheet"
-                        :href "/css/nord.min.css"}]
-                [:script {:src "/js/highlight.min.js"}]
-                [:script
-                 "hljs.highlightAll();"]]
-               [:body
-                body]])))))))
+  ([page body]
+   (output-section-page! {} page body))
+  ([{:keys [highlight]
+     :or {highlight true}}
+    page body]
+   (let [path (str "site/" page ".html")]
+     (io/make-parents path)
+     (spit path
+           (str
+            "<!DOCTYPE html>"
+            (str/join
+             (e/emit*
+              (e/html
+               [:html
+                [:head
+                 [:link {:rel "stylesheet"
+                         :href "/css/preflight.css"}]
+                 [:link {:rel "stylesheet"
+                         :href "/css/style.css"}]
+                 [:link {:rel "stylesheet"
+                         :href "/css/nord.min.css"}]
+                 [:script {:src "/js/highlight.min.js"}]
+                 (when highlight
+                   [:script "hljs.highlightAll();"])]
+                [:body
+                 body]]))))))))
 
 (def grouped-sections
   (->> (e/select html-res [:div#content])
@@ -108,8 +113,43 @@
        (remove string?)
        (group-content-in-div headers)))
 
+(def all-sections
+  ["section--welcome"
+   "section--community"
+   "section--book"
+   "section--tutorial-video"
+   "section--getting-started-tutorial"
+   "section--starting-a-new-dragonruby-project"
+   "section--deploying-to-itch-io"
+   "section--deploying-to-mobile-devices"
+   "section--dragonruby-s-philosophy"
+   "section--frequently-asked-questions--comments--and-concerns"
+   "section--recipies-"
+   "section---runtime-"
+   "section---args-state-"
+   "section---args-inputs-"
+   "section---args-outputs-"
+   "section---args-easing-"
+   "section---args-string-"
+   "section---args-grid-"
+   "section---audio-"
+   "section---easing-"
+   "section---outputs-"
+   "section---solids-"
+   "section---borders-"
+   "section---sprites-"
+   "section---labels-"
+   "section---screenshots-"
+   "section---mouse-"
+   "section---openentity-"
+   "section---array-"
+   "section---kernel-"
+   "section---geometry-"
+   "section--source-code"])
+
 (def api-docs-sections
-  ["#section---runtime-"
+  ["section--recipies-"
+   "#section---runtime-"
    "#section---args-state-"
    "#section---args-inputs-"
    "#section---args-outputs-"
@@ -134,7 +174,7 @@
 
 (comment
   (map (comp :id :attrs) grouped-sections)
-  (map :tag grouped-sections)
+  
   (:content (second grouped-sections))
 
   (nth (:content (nth grouped-sections 12)) 3)
@@ -155,12 +195,9 @@
 
 (output-section-page!
  "api/index"
- (e/select grouped-sections (into #{} (map (comp vector keyword)
-                                           api-docs-sections))))
-(output-section-page!
- "recipies/index"
- (e/select grouped-sections [:#section--recipies-]))
+ (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections))))
 
 (output-section-page!
+  {:highlight false}
  "samples/index"
- (e/select (promote-h-tags grouped-sections) [:#section--source-code]))
+ (seq (promote-h-tags (e/select grouped-sections [:#section--source-code]))))

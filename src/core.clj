@@ -1,9 +1,11 @@
 (ns core
-  (:require
-   [net.cgrand.enlive-html :as e]
-   [babashka.fs :as fs]
-   [clojure.java.io :as io]
-   [clojure.string :as str]))
+  (:require [babashka.pods :as pods]
+            [babashka.fs :as fs]
+            [clojure.string :as str]
+            [clojure.java.io :as io]))
+
+(pods/load-pod "bootleg")
+(require '[pod.retrogradeorbit.net.cgrand.enlive-html :as e])
 
 (def headers [:h1 :h2 :h3 :h4 :h5 :h6])
 
@@ -136,20 +138,36 @@
 ])
 
 
-(defonce url "http://docs.dragonruby.org.s3-website-us-east-1.amazonaws.com")
-(defonce html-string (-> (slurp url)
-                     (str/replace "<=" "&lt="))) ;; hackaround for dodgy html
-(defonce html-res (e/html-resource (io/input-stream (.getBytes html-string))))
+(defn extract-toc-link [nodes tag]
+  (let [ns (e/select nodes [tag])]
+    (map (fn [n]
+           [:a {:href (str "/api#" (-> (e/select n [:.inner-link]) first :attrs :id))}
+            (str/join " " (map str/trim (e/select n [e/text-node])))])
+         ns)))
 
-(def grouped-sections
-  (->> (e/select html-res [:div#content])
-       first
-       :content
-       (remove string?)
-       (group-content-in-div headers)
-       bring-back-language-ruby
-       turn-header-into-self-link
-  ))
+(defn generate-toc
+  [nodes]
+  (let [sections (e/select nodes [:.h1-container])]
+    [:div
+     [:h1 "DragonRuby API Docs"]
+     [:p "This content is generate from the " [:a {:href "http://docs.dragonruby.org.s3-website-us-east-1.amazonaws.com/"} "original DragonRuby docs"] ", but contains just the core API documentation with a few bells and whistles like sticky headers and syntax highlighting."]
+     (map
+      (fn [s1] (let [sections (e/select s1 [:.h2-container])]
+                 (list [:h1 (extract-toc-link s1 :h1) ]
+                       [:ul (map
+                             (fn [s2]
+                               [:li
+                                (extract-toc-link s2 :h2)])
+                             sections)])))
+      sections)]))
+
+(def source-path "temp/source.html")
+(defn fetch-source! []
+  (let [url "http://docs.dragonruby.org.s3-website-us-east-1.amazonaws.com"
+        html-string (-> (slurp url) 
+                        (str/replace "<=" "&lt="))] ;; hackaround for dodgy html
+    (io/make-parents source-path)
+    (spit source-path html-string)))
 
 (defn render-page!
   ([page body]
@@ -179,62 +197,46 @@
                 [:body
                  body]]))))))))
 
-
-(defn extract-toc-link [nodes tag]
-  (let [ns (e/select nodes [tag])]
-    (map (fn [n]
-           [:a {:href (str "/api#" (-> (e/select n [:.inner-link]) first :attrs :id))}
-            (str/join " " (map str/trim (e/select n [e/text-node])))])
-         ns)))
-
-(defn generate-toc
-  [nodes]
-  (let [sections (e/select nodes [:.h1-container])]
-    [:div
-     [:h1 "DragonRuby API Docs"]
-     [:p "This content is generate from the " [:a {:href "http://docs.dragonruby.org.s3-website-us-east-1.amazonaws.com/"} "original DragonRuby docs"] ", but contains just the core API documentation with a few bells and whistles like sticky headers and syntax highlighting."]
-     (map
-      (fn [s1] (let [sections (e/select s1 [:.h2-container])]
-                 (list [:h1 (extract-toc-link s1 :h1) ]
-                       [:ul (map
-                             (fn [s2]
-                               [:li
-                                (extract-toc-link s2 :h2)])
-                             sections)])))
-      sections)]))
-
-(comment (fs/delete-tree "site")
-         (fs/copy-tree "resources/static" "site")
-         (render-page!
-          "toc"
-          (generate-toc (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections))))))
-
 (defn check-site
   "Ensure the top level structure of the site hasn't changed from what we expect"
-  []
+  [grouped-sections]
   (= all-sections
      (map (comp :id :attrs) grouped-sections)))
 
 (defn render-site! []
-  (assert (check-site) "Site structure has changed - please adjust your expectations.")
-  
-  (fs/delete-tree "site")
-  (fs/copy-tree "resources/static" "site")
-
-  (let [api-sections (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections)))]
-    (render-page!
-     ""
-     (generate-toc api-sections))
+  (let [html-res (e/html-resource source-path)
+        grouped-sections
+        (->> (e/select html-res [:div#content])
+             first
+             :content
+             (remove string?)
+             (group-content-in-div headers)
+             bring-back-language-ruby
+             turn-header-into-self-link
+             )]
     
+    (assert (check-site grouped-sections) "Site structure has changed - please adjust your expectations.")
+    
+    (fs/delete-tree "site")
+    (fs/copy-tree "resources/static" "site")
+
+    (let [api-sections (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections)))]
+      (render-page!
+       ""
+       (generate-toc api-sections))
+      
+      (render-page!
+       "/api"
+       api-sections))
+
     (render-page!
-     "/api"
-     api-sections))
+     {:highlight false}
+     "/samples"
+     (seq (promote-h-tags (e/select grouped-sections [:#section--source-code]))))))
 
-  (render-page!
-   {:highlight false}
-   "/samples"
-   (seq (promote-h-tags (e/select grouped-sections [:#section--source-code])))))
-
-(defn -main [& _args]
+(defn -main []
+  (println "Fetching source html...")
+  (fetch-source!)
+  (println "Rendering site...")
   (render-site!))
 

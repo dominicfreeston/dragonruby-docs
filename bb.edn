@@ -1,0 +1,12 @@
+{:paths ["src", "resources"]
+ :deps {enlive/enlive {:mvn/version "1.1.6"}
+        babashka/fs {:mvn/version "0.3.17"}}
+ :tasks
+ {:requires ([babashka.fs :as fs])
+  clean (do
+          (println "Removing temp and site folder")
+          (fs/delete-tree "temp")
+          (fs/delete-tree "site"))
+  
+  build core/-main
+  }}

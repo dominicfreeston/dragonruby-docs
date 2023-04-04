@@ -1,0 +1,50 @@
+html {
+    font-family: system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+body {
+    margin: 0 1rem;
+}
+
+p {
+    margin: 1rem 0;
+}
+
+h1, h2, h3 {
+    background-color: white;
+    font-weight: 400;
+}
+
+h1 {
+    position: sticky;
+    top: 0;
+    margin: 1.5rem 0 0.2rem 0;
+    padding: 0.2rem 0;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    z-index: 1;
+}
+
+h2 {
+    position: sticky;
+    top: 2.2rem;
+    margin: 1.5rem 0 0.5rem 0;
+    padding: 0.1rem 0;
+    font-size: 1.3rem;
+    border: none;
+    border-color: #101010;
+    border-bottom: 2px;
+    border-bottom-style: solid;
+}
+
+h3 {
+    padding: 0.1rem 0;
+    font-size: 1rem;
+    margin: 0.9rem 0 0.2rem 0;
+}
+
+li {
+    list-style: square inside;
+}

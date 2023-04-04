@@ -235,6 +235,6 @@
    "/samples"
    (seq (promote-h-tags (e/select grouped-sections [:#section--source-code])))))
 
-(defn -main []
+(defn -main [& _args]
   (render-site!))
 

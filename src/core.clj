@@ -1,6 +1,7 @@
 (ns core
   (:require
    [net.cgrand.enlive-html :as e]
+   [babashka.fs :as fs]
    [clojure.java.io :as io]
    [clojure.string :as str]))
 
@@ -179,6 +180,9 @@
      (map (comp :id :attrs) grouped-sections)))
 
 (defn render-site! []
+  (fs/delete-tree "site")
+  (fs/copy-tree "resources/static" "site")
+  
   (render-page!
    "api/index"
    (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections))))
@@ -188,3 +192,5 @@
    "samples/index"
    (seq (promote-h-tags (e/select grouped-sections [:#section--source-code])))))
 
+
+(render-site!)

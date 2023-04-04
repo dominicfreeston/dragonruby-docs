@@ -4,11 +4,6 @@
    [clojure.java.io :as io]
    [clojure.string :as str]))
 
-(defonce url "http://docs.dragonruby.org.s3-website-us-east-1.amazonaws.com")
-(defonce html-string (-> (slurp url)
-                     (str/replace "<=" "&lt="))) ;; hackaround for dodgy html
-(defonce html-res (e/html-resource (io/input-stream (.getBytes html-string))))
-
 (def headers [:h1 :h2 :h3 :h4 :h5 :h6])
 
 (defn bring-back-language-ruby
@@ -76,43 +71,6 @@
               :content (group-content-in-div (rest partitions) content)})
            (rest partitioned-content)))))
 
-(defn output-section-page!
-  ([page body]
-   (output-section-page! {} page body))
-  ([{:keys [highlight]
-     :or {highlight true}}
-    page body]
-   (let [path (str "site/" page ".html")]
-     (io/make-parents path)
-     (spit path
-           (str
-            "<!DOCTYPE html>"
-            (str/join
-             (e/emit*
-              (e/html
-               [:html
-                [:head
-                 [:link {:rel "stylesheet"
-                         :href "/css/preflight.css"}]
-                 [:link {:rel "stylesheet"
-                         :href "/css/style.css"}]
-                 [:link {:rel "stylesheet"
-                         :href "/css/nord.min.css"}]
-                 [:script {:src "/js/highlight.min.js"}]
-                 (when highlight
-                   [:script "hljs.highlightAll();"])]
-                [:body
-                 body]]))))))))
-
-(def grouped-sections
-  (->> (e/select html-res [:div#content])
-       bring-back-language-ruby
-       turn-header-into-self-link
-       first
-       :content
-       (remove string?)
-       (group-content-in-div headers)))
-
 (def all-sections
   ["section--welcome"
    "section--community"
@@ -172,32 +130,61 @@
 ])
 
 
-(comment
-  (map (comp :id :attrs) grouped-sections)
-  
-  (:content (second grouped-sections))
+(defonce url "http://docs.dragonruby.org.s3-website-us-east-1.amazonaws.com")
+(defonce html-string (-> (slurp url)
+                     (str/replace "<=" "&lt="))) ;; hackaround for dodgy html
+(defonce html-res (e/html-resource (io/input-stream (.getBytes html-string))))
 
-  (nth (:content (nth grouped-sections 12)) 3)
-  (promote-h-tags (e/select (nth grouped-sections 12) [:h2]))
-    
-  (-> "#section---geometry-"
-      (str/replace-first "#section---" "")
-      drop-last
-      str/join)
+(def grouped-sections
+  (->> (e/select html-res [:div#content])
+       bring-back-language-ruby
+       turn-header-into-self-link
+       first
+       :content
+       (remove string?)
+       (group-content-in-div headers)))
 
-  (doseq [s api-docs-sections]
-    (output-section-page!
-     (-> s
-         (str/replace-first "#section---" "")
-         drop-last
-         str/join)
-     (e/select grouped-sections [(keyword s)]))))
+(defn render-page!
+  ([page body]
+   (render-page! {} page body))
+  ([{:keys [highlight]
+     :or {highlight true}}
+    page body]
+   (let [path (str "site/" page ".html")]
+     (io/make-parents path)
+     (spit path
+           (str
+            "<!DOCTYPE html>"
+            (str/join
+             (e/emit*
+              (e/html
+               [:html
+                [:head
+                 [:link {:rel "stylesheet"
+                         :href "/css/preflight.css"}]
+                 [:link {:rel "stylesheet"
+                         :href "/css/style.css"}]
+                 [:link {:rel "stylesheet"
+                         :href "/css/nord.min.css"}]
+                 [:script {:src "/js/highlight.min.js"}]
+                 (when highlight
+                   [:script "hljs.highlightAll();"])]
+                [:body
+                 body]]))))))))
 
-(output-section-page!
- "api/index"
- (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections))))
+(defn check-site
+  "Ensure the top level structure of the site hasn't changed from what we expect"
+  []
+  (= all-sections
+     (map (comp :id :attrs) grouped-sections)))
 
-(output-section-page!
-  {:highlight false}
- "samples/index"
- (seq (promote-h-tags (e/select grouped-sections [:#section--source-code]))))
+(defn render-site! []
+  (render-page!
+   "api/index"
+   (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections))))
+
+  (render-page!
+   {:highlight false}
+   "samples/index"
+   (seq (promote-h-tags (e/select grouped-sections [:#section--source-code])))))
+

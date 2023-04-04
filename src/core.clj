@@ -27,8 +27,13 @@
    (set (map vector headers))
    (fn [h]
      (if-let [id (get-in h [:attrs :id])]
-       (assoc h :content
+       (assoc h
+              :attrs (dissoc (:attrs h) :id)
+              :content
               [{:tag :a
+                :attrs {:id id
+                        :class "inner-link"}}
+               {:tag :a
                 :attrs {:href (str "#" id)}
                 :content (:content h)}])
        h))))
@@ -107,7 +112,7 @@
    "section--source-code"])
 
 (def api-docs-sections
-  ["section--recipies-"
+  ["#section--recipies-"
    "#section---runtime-"
    "#section---args-state-"
    "#section---args-inputs-"
@@ -138,12 +143,13 @@
 
 (def grouped-sections
   (->> (e/select html-res [:div#content])
-       bring-back-language-ruby
-       turn-header-into-self-link
        first
        :content
        (remove string?)
-       (group-content-in-div headers)))
+       (group-content-in-div headers)
+       bring-back-language-ruby
+       turn-header-into-self-link
+  ))
 
 (defn render-page!
   ([page body]
@@ -151,7 +157,7 @@
   ([{:keys [highlight]
      :or {highlight true}}
     page body]
-   (let [path (str "site/" page ".html")]
+   (let [path (str "site" page "/index.html")]
      (io/make-parents path)
      (spit path
            (str
@@ -173,6 +179,36 @@
                 [:body
                  body]]))))))))
 
+
+(defn extract-toc-link [nodes tag]
+  (let [ns (e/select nodes [tag])]
+    (map (fn [n]
+           [:a {:href (str "/api#" (-> (e/select n [:.inner-link]) first :attrs :id))}
+            (str/join (map str/trim (e/select n [e/text-node])))])
+         ns)))
+
+(defn generate-toc
+  [nodes]
+  (let [sections (e/select nodes [:.h1-container])]
+    [:div
+     [:h1 "DragonRuby API Docs"]
+     [:p "This content is generate from the " [:a {:href "http://docs.dragonruby.org.s3-website-us-east-1.amazonaws.com/"} "original DragonRuby docs"] ", but contains just the core API documentation with a few bells and whistles like sticky headers and syntax highlighting."]
+     (map
+      (fn [s1] (let [sections (e/select s1 [:.h2-container])]
+                 (list [:h1 (extract-toc-link s1 :h1) ]
+                       [:ul (map
+                             (fn [s2]
+                               [:li
+                                (extract-toc-link s2 :h2)])
+                             sections)])))
+      sections)]))
+
+(comment (fs/delete-tree "site")
+         (fs/copy-tree "resources/static" "site")
+         (render-page!
+          "toc"
+          (generate-toc (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections))))))
+
 (defn check-site
   "Ensure the top level structure of the site hasn't changed from what we expect"
   []
@@ -180,17 +216,25 @@
      (map (comp :id :attrs) grouped-sections)))
 
 (defn render-site! []
+  (assert (check-site) "Site structure has changed - please adjust your expectations.")
+  
   (fs/delete-tree "site")
   (fs/copy-tree "resources/static" "site")
-  
-  (render-page!
-   "api/index"
-   (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections))))
+
+  (let [api-sections (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections)))]
+    (render-page!
+     ""
+     (generate-toc api-sections))
+    
+    (render-page!
+     "/api"
+     api-sections))
 
   (render-page!
    {:highlight false}
-   "samples/index"
+   "/samples"
    (seq (promote-h-tags (e/select grouped-sections [:#section--source-code])))))
 
+(defn -main []
+  (render-site!))
 
-(render-site!)

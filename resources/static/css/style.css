@@ -6,6 +6,7 @@ html {
 
 body {
     margin: 0 1rem;
+    max-width: 100%;
 }
 
 p {
@@ -48,3 +49,10 @@ h3 {
 li {
     list-style: square inside;
 }
+
+.inner-link {
+    display: block;
+    position: relative;
+    top: -2.2rem;
+}
+

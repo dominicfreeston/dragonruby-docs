@@ -184,7 +184,7 @@
   (let [ns (e/select nodes [tag])]
     (map (fn [n]
            [:a {:href (str "/api#" (-> (e/select n [:.inner-link]) first :attrs :id))}
-            (str/join (map str/trim (e/select n [e/text-node])))])
+            (str/join " " (map str/trim (e/select n [e/text-node])))])
          ns)))
 
 (defn generate-toc

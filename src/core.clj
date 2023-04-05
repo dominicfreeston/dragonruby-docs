@@ -238,8 +238,11 @@
      (seq (promote-h-tags (e/select grouped-sections [:#section--source-code]))))))
 
 (defn -main []
-  (println "Fetching source html...")
-  (fetch-source!)
+  (if (fs/exists? source-path)
+    (println "Source html already exits, skipping.")
+    (do
+      (println "Fetching source html...")
+      (fetch-source!)))
   (println "Rendering site...")
   (render-site!))
 

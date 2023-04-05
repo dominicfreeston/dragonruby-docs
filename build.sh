@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "Creating and moving to temp directory"
+rm -rf temp
 mkdir temp
 cd temp
 export PATH=$PATH:$(pwd)

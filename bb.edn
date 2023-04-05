@@ -9,4 +9,6 @@
           (fs/delete-tree "site"))
   
   build core/-main
+
+  serve (shell "python -m http.server --directory site")
   }}

@@ -185,6 +185,9 @@
               (e/html
                [:html
                 [:head
+                 [:title "DragonRuby Docs"]
+                 [:link {:rel "canonical," :href "https://dragonruby.freeston.me/"}]
+                 [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
                  [:link {:rel "stylesheet"
                          :href "/css/preflight.css"}]
                  [:link {:rel "stylesheet"

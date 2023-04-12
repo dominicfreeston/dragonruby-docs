@@ -10,5 +10,7 @@
   
   build core/-main
 
+  list-sections core/print-all-sections
+
   serve (shell "python -m http.server --directory site")
   }}

@@ -109,33 +109,36 @@
    "section---mouse-"
    "section---openentity-"
    "section---array-"
+   "section---numeric-"
    "section---kernel-"
    "section---geometry-"
-   "section--source-code"])
+   "section--source-code"
+   ])
 
 (def api-docs-sections
-  ["#section--recipies-"
-   "#section---runtime-"
-   "#section---args-state-"
-   "#section---args-inputs-"
-   "#section---args-outputs-"
-   "#section---args-easing-"
-   "#section---args-string-"
-   "#section---args-grid-"
-   "#section---audio-"
-   "#section---easing-"
-   "#section---outputs-"
-   "#section---solids-"
-   "#section---borders-"
-   "#section---sprites-"
-   "#section---labels-"
-   "#section---screenshots-"
-   "#section---mouse-"
-   "#section---openentity-"
-   "#section---array-"
-   "#section---kernel-"
-   "#section---geometry-"
-])
+  ["section--recipies-"
+   "section---runtime-"
+   "section---args-state-"
+   "section---args-inputs-"
+   "section---args-outputs-"
+   "section---args-easing-"
+   "section---args-string-"
+   "section---args-grid-"
+   "section---audio-"
+   "section---easing-"
+   "section---outputs-"
+   "section---solids-"
+   "section---borders-"
+   "section---sprites-"
+   "section---labels-"
+   "section---screenshots-"
+   "section---mouse-"
+   "section---openentity-"
+   "section---array-"
+   "section---numeric-"
+   "section---kernel-"
+   "section---geometry-"
+   ])
 
 
 (defn extract-toc-link [nodes tag]
@@ -206,24 +209,24 @@
   (= all-sections
      (map (comp :id :attrs) grouped-sections)))
 
-(defn render-site! []
-  (let [html-res (e/html-resource source-path)
-        grouped-sections
-        (->> (e/select html-res [:div#content])
+(defn parse-grouped-sections [source-path]
+  (let [html-res (e/html-resource source-path)]
+    (->> (e/select html-res [:div#content])
              first
              :content
              (remove string?)
              (group-content-in-div headers)
              bring-back-language-ruby
-             turn-header-into-self-link
-             )]
-    
+             turn-header-into-self-link)))
+
+(defn render-site! []
+  (let [grouped-sections (parse-grouped-sections source-path)]
     (assert (check-site grouped-sections) "Site structure has changed - please adjust your expectations.")
     
     (fs/delete-tree "site")
     (fs/copy-tree "resources/static" "site")
 
-    (let [api-sections (e/select grouped-sections (into #{} (map (comp vector keyword) api-docs-sections)))]
+    (let [api-sections (e/select grouped-sections (into #{} (map (comp vector keyword (partial str "#")) api-docs-sections)))]
       (render-page!
        ""
        (generate-toc api-sections))
@@ -236,6 +239,9 @@
      {:highlight false}
      "/samples"
      (seq (promote-h-tags (e/select grouped-sections [:#section--source-code]))))))
+
+(defn print-all-sections []
+  (prn (map (comp :id :attrs) (parse-grouped-sections source-path))))
 
 (defn -main []
   (if (fs/exists? source-path)

@@ -88,6 +88,7 @@
    "section--starting-a-new-dragonruby-project"
    "section--deploying-to-itch-io"
    "section--deploying-to-mobile-devices"
+   "section--deploying-to-steam"
    "section--dragonruby-s-philosophy"
    "section--frequently-asked-questions--comments--and-concerns"
    "section--recipies-"
@@ -98,8 +99,10 @@
    "section---args-easing-"
    "section---args-string-"
    "section---args-grid-"
-   "section---audio-"
-   "section---easing-"
+   "section---args-audio-"
+   "section---args-easing-"
+   "section--pixel-arrays"
+   "section---args-cvars-"
    "section---outputs-"
    "section---solids-"
    "section---borders-"
@@ -124,8 +127,10 @@
    "section---args-easing-"
    "section---args-string-"
    "section---args-grid-"
-   "section---audio-"
-   "section---easing-"
+   "section---args-audio-"
+   "section---args-easing-"
+   "section--pixel-arrays"
+   "section---args-cvars-"
    "section---outputs-"
    "section---solids-"
    "section---borders-"
@@ -145,7 +150,10 @@
   (let [ns (e/select nodes [tag])]
     (map (fn [n]
            [:a {:href (str "/api#" (-> (e/select n [:.inner-link]) first :attrs :id))}
-            (str/join " " (map str/trim (e/select n [e/text-node])))])
+            (->> (e/select n [e/text-node])
+                 drop-last ;; all headers now have a link called 'link'
+                 (map str/trim)
+                 (str/join " "))])
          ns)))
 
 (defn generate-toc

@@ -99,6 +99,7 @@
    "section---args-easing-"
    "section---args-string-"
    "section---args-grid-"
+   "section---geometry-"
    "section---args-audio-"
    "section---args-easing-"
    "section--pixel-arrays"
@@ -114,8 +115,7 @@
    "section---array-"
    "section---numeric-"
    "section---kernel-"
-   "section---geometry-"
-   "section--source-code"
+   "section--samples"
    ])
 
 (def api-docs-sections
@@ -127,6 +127,7 @@
    "section---args-easing-"
    "section---args-string-"
    "section---args-grid-"
+   "section---geometry-"
    "section---args-audio-"
    "section---args-easing-"
    "section--pixel-arrays"
@@ -142,7 +143,6 @@
    "section---array-"
    "section---numeric-"
    "section---kernel-"
-   "section---geometry-"
    ])
 
 
